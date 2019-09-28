@@ -1,0 +1,22 @@
+{
+  "name": "front_server_fasion_ec",
+  "description": "",
+  "version": "2.9.2",
+  "private": true,
+  "dependencies": {
+    "@nuxtjs/axios": "5.6.0",
+    "@nuxt/typescript-runtime": "0.1.6",
+    "nuxt": "2.9.2",
+    "nuxt-property-decorator": "2.4.0",
+    "vuex-class": "0.3.2"
+  },
+  "scripts": {
+    "dev": "nuxt-ts",
+    "build": "nuxt-ts build",
+    "start": "nuxt-ts start",
+    "generate": "nuxt-ts generate"
+  },
+  "devDependencies": {
+    "@nuxt/typescript-build": "0.2.9"
+  }
+}
