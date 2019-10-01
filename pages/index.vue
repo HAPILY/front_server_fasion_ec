@@ -1,68 +1,44 @@
 <template>
-  <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        test
-      </h1>
-      <h2 class="subtitle">
-        My delightful Nuxt.js project
-      </h2>
-      <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green">
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+  <a-layout id="components-layout-demo-top" class="layout">
+    <a-layout-header>
+      <div class="logo" />
+      <a-menu
+        theme="dark"
+        mode="horizontal"
+        :defaultSelectedKeys="['2']"
+        :style="{ lineHeight: '64px' }"
+      >
+        <a-menu-item key="1">nav 1</a-menu-item>
+        <a-menu-item key="2">nav 2</a-menu-item>
+        <a-menu-item key="3">nav 3</a-menu-item>
+      </a-menu>
+    </a-layout-header>
+    <a-layout-content style="padding: 0 50px">
+      <a-breadcrumb style="margin: 16px 0">
+        <a-breadcrumb-item>Home</a-breadcrumb-item>
+        <a-breadcrumb-item>List</a-breadcrumb-item>
+        <a-breadcrumb-item>App</a-breadcrumb-item>
+      </a-breadcrumb>
+      <div :style="{ background: '#fff', padding: '24px', minHeight: '280px' }">
+        Content
       </div>
-    </div>
-  </div>
+    </a-layout-content>
+    <a-layout-footer style="text-align: center">
+      Ant Design ©2018 Created by Ant UED
+    </a-layout-footer>
+  </a-layout>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-
-export default {
-  components: {
-    Logo
-  }
-}
+export default {}
 </script>
 
 <style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
+#components-layout-demo-top .logo {
+  width: 120px;
+  height: 31px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px 24px 16px 0;
+  float: left;
 }
 </style>
