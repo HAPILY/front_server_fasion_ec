@@ -55,6 +55,7 @@ export default {
     /*
      ** You can extend webpack config here
      */
+    parallel: true,
     extend(config, ctx) {}
   }
 }
