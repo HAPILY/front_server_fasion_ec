@@ -2,9 +2,9 @@
   <a-layout id="components-layout-demo-top" class="layout">
     <a-layout-content style="padding: 0 50px">
       <div :style="{ background: '#fff', padding: '24px', minHeight: '280px' }">
-        Content
+        Store
       </div>
-      <Breadcrumbs :currentPage="{ name: 'Top' }" />
+      <Breadcrumbs :currentPage="{ name: 'Store' }" />
     </a-layout-content>
   </a-layout>
 </template>

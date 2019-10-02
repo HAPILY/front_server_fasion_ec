@@ -23,7 +23,7 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['ant-design-vue/dist/antd.css'],
+  css: ['ant-design-vue/dist/antd.css', '@/assets/scss/index.scss'],
   /*
    ** Plugins to load before mounting the App
    */
@@ -55,6 +55,11 @@ export default {
     /*
      ** You can extend webpack config here
      */
+    loaders: {
+      scss: {
+        data: `@import '~assets/scss/index.scss';`
+      }
+    },
     parallel: true,
     extend(config, ctx) {}
   }
