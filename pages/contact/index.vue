@@ -1,5 +1,6 @@
 <template>
   <div class="contact">
+    <h1 class="contact-title">お問い合わせ</h1>
     <a-form :form="form" @submit="handleSubmit">
       <a-form-item
         class="contact-name"
@@ -47,11 +48,14 @@
           :autosize="{ minRows: 4, maxRows: 10 }"
         />
       </a-form-item>
-      <a-form-item class="contact-submit" :wrapper-col="{ span: 15, offset: 5 }">
+      <a-form-item class="contact-submit-pc" :wrapper-col="{ span: 15, offset: 5 }">
+        <a-button type="primary" html-type="submit">送信</a-button>
+      </a-form-item>
+      <a-form-item class="contact-submit-sp" :wrapper-col="{ span: 15 }">
         <a-button type="primary" html-type="submit">送信</a-button>
       </a-form-item>
     </a-form>
-    <Breadcrumbs :currentPage="{ name: 'お問い合わせ' }" />
+    <Breadcrumbs :parentPages="[{ path: '/', name: 'トップ' }]" :currentPage="{ name: 'お問い合わせ' }" />
   </div>
 </template>
 
@@ -87,6 +91,13 @@ export default {
   padding-bottom: 8px;
   min-height: 280px;
 
+  &-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 28px;
+    text-align: center;
+  }
+
   &-name,
   &-mail,
   &-detail {
@@ -94,7 +105,18 @@ export default {
   }
 
   &-submit {
-    text-align: right;
+    &-pc {
+      text-align: right;
+      @include media(sm) {
+        display: none;
+      }
+    }
+    &-sp {
+      text-align: right;
+      @include media(xl, lg, md) {
+        display: none;
+      }
+    }
   }
 }
 </style>

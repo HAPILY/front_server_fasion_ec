@@ -9,14 +9,8 @@
         :defaultSelectedKeys="[path]"
         :selectedKeys="[path]"
       >
-        <a-menu-item
-          class="header-menu-item"
-          v-for="item in items"
-          :key="item.to"
-        >
-          <nuxt-link :to="item.to">
-            {{ item.title }}
-          </nuxt-link>
+        <a-menu-item class="header-menu-item" v-for="item in items" :key="item.to">
+          <nuxt-link :to="item.to">{{ item.title }}</nuxt-link>
         </a-menu-item>
       </a-menu>
     </a-layout-header>
@@ -28,14 +22,8 @@
       @breakpoint="onBreakpoint"
     >
       <a-menu theme="dark" mode="inline" :defaultSelectedKeys="[path]" :selectedKeys="[path]">
-        <a-menu-item
-          class="header-menu-item"
-          v-for="item in items"
-          :key="item.to"
-        >
-          <nuxt-link :to="item.to">
-            {{ item.title }}
-          </nuxt-link>
+        <a-menu-item class="header-menu-item" v-for="item in items" :key="item.to">
+          <nuxt-link :to="item.to">{{ item.title }}</nuxt-link>
         </a-menu-item>
       </a-menu>
     </a-layout-sider>
@@ -43,34 +31,37 @@
 </template>
 
 <script>
-import CONST from '@/const'
+import CONST from "@/const";
 
 export default {
-  name: 'Header',
+  name: "Header",
   props: {
     path: {
       type: String,
       required: true
     }
   },
-  data () {
+  data() {
     return {
       items: CONST.Header.items
-    }
+    };
   },
   methods: {
-    onCollapse (collapsed, type) {
-      console.log(collapsed, type)
+    onCollapse(collapsed, type) {
+      console.log(collapsed, type);
     },
-    onBreakpoint (broken) {
-      console.log(broken)
+    onBreakpoint(broken) {
+      console.log(broken);
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
 .header {
+  position: fixed;
+  width: 100%;
+  z-index: 2;
   &-nav {
     @include media(sm) {
       width: 100%;

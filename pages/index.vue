@@ -1,20 +1,16 @@
 <template>
-  <a-layout id="components-layout-demo-top" class="layout">
-    <a-layout-content style="padding: 0 50px">
-      <div :style="{ background: '#fff', padding: '24px', minHeight: '280px' }">
-        Content
-      </div>
-      <Breadcrumbs :currentPage="{ name: 'Top' }" />
-    </a-layout-content>
-  </a-layout>
+  <div class="top">
+    <div :style="{ background: '#fff', padding: '24px', minHeight: '280px' }">Content</div>
+    <Breadcrumbs :currentPage="{ name: 'Top' }" />
+  </div>
 </template>
 
 <script>
-import Breadcrumbs from '@/components/global/Breadcrumbs.vue'
+import Breadcrumbs from "@/components/global/Breadcrumbs.vue";
 
 export default {
   components: {
     Breadcrumbs
   }
-}
+};
 </script>
