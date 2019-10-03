@@ -1,9 +1,11 @@
 <template>
   <div>
     <Header :path="path" />
-    <div>
-      <nuxt />
-    </div>
+    <a-layout class="layout">
+      <a-layout-content class="layout-content">
+        <nuxt />
+      </a-layout-content>
+    </a-layout>
     <Footer />
   </div>
 </template>
@@ -43,5 +45,11 @@ html {
 *:after {
   box-sizing: border-box;
   margin: 0;
+}
+.layout {
+  height: 100vh;
+}
+.layout-content {
+  padding: 50px;
 }
 </style>
