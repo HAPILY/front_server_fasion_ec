@@ -2,9 +2,7 @@ $bp: (
   xl: '(min-width: 1366px)',
   lg: '(max-width: 1365px) and (min-width: 1024px)',
   md: '(max-width: 1023px) and (min-width: 768px)',
-  sm: '(max-width: 767px)',
-  sm-gt-xs: '(max-width: 767px) and (min-width: 375px)',
-  xs: '(max-width: 374px)'
+  sm: '(max-width: 767px)'
 );
 
 @function breakpoint($media) {
