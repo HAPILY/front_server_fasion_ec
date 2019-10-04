@@ -27,7 +27,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ["@/plugins/antd-ui"],
+  plugins: ["@/plugins/antd-ui", { src: "~/plugins/vue-carousel", ssr: false }],
   /*
    ** Nuxt.js dev-modules
    */

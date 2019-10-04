@@ -48,7 +48,7 @@ html {
 }
 .layout {
   height: 100vh;
-  padding-top: 64px;
+  padding-top: 80px;
 }
 .layout-content {
   padding: 50px;
