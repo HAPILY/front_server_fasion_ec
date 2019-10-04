@@ -1,7 +1,3 @@
-# test
-
-> My delightful Nuxt.js project
-
 ## Build Setup
 
 ``` bash
@@ -20,3 +16,7 @@ $ yarn generate
 ```
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+
+## Use Design Component
+
+[Ant Design of Vue](https://vue.ant.design/docs/vue/introduce/)
