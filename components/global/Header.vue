@@ -1,7 +1,11 @@
 <template>
   <div class="header">
     <a-layout-header class="header-nav">
-      <div class="header-logo" />
+      <div class="header-logo">
+        <nuxt-link to="/">
+          <img src="https://placehold.jp/120x40.png" />
+        </nuxt-link>
+      </div>
       <a-menu
         class="header-menu"
         theme="dark"
@@ -22,6 +26,11 @@
       @breakpoint="onBreakpoint"
     >
       <a-menu theme="dark" mode="inline" :defaultSelectedKeys="[path]" :selectedKeys="[path]">
+        <a-menu-item class="header-menu-item">
+          <nuxt-link to="/">
+            <img src="https://placehold.jp/120x40.png" />
+          </nuxt-link>
+        </a-menu-item>
         <a-menu-item class="header-menu-item" v-for="item in items" :key="item.to">
           <nuxt-link :to="item.to">{{ item.title }}</nuxt-link>
         </a-menu-item>
@@ -83,7 +92,7 @@ export default {
   }
   &-logo {
     width: 120px;
-    height: 31px;
+    height: 40px;
     background: rgba(255, 255, 255, 0.2);
     margin: 16px 24px 16px 50px;
     float: left;
@@ -93,9 +102,10 @@ export default {
   }
 
   &-menu {
-    line-height: 64px;
+    line-height: 72px;
     &-item {
       width: 80px;
+      height: 72px;
       padding: 0 10px;
       text-align: center;
     }
@@ -105,6 +115,11 @@ export default {
     top: -53px !important;
     right: -53px !important;
     width: 40px !important;
+  }
+  /deep/ .ant-layout-sider-children {
+    position: absolute !important;
+    top: -50px !important;
+    left: 20px !important;
   }
 }
 </style>
