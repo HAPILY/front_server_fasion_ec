@@ -17,6 +17,7 @@
         <img src="http://placehold.jp/24/20A0E0/fad867/600x200.png" />
       </Slide>
     </Carousel>
+    <h1 class="top-news">News</h1>
     <Breadcrumbs :currentPage="{ name: 'Top' }" />
   </div>
 </template>
@@ -45,6 +46,12 @@ export default {
     img {
       width: 100%;
     }
+  }
+
+  &-news {
+    text-align: center;
+    font-family: Garton;
+    font-size: 28px;
   }
 
   /deep/ .VueCarousel-dot-container {
