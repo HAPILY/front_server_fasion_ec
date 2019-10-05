@@ -47,13 +47,13 @@ html {
   margin: 0;
 }
 .layout {
-  height: 100vh;
-  padding-top: 80px;
+  padding-top: 72px;
+  background: color(white, base) !important;
+  @include media(sm) {
+    padding-top: 64px;
+  }
 }
 .layout-content {
-  padding: 50px;
-  @include media(sm) {
-    padding: 20px;
-  }
+  padding: 0px;
 }
 </style>

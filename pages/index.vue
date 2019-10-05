@@ -18,6 +18,32 @@
       </Slide>
     </Carousel>
     <h1 class="top-news">News</h1>
+    <div class="top-news-list">
+      <a-card class="top-news-item" hoverable>
+        <img
+          alt="example"
+          src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+          slot="cover"
+        />
+        <a-card-meta title="Card title" description="This is the description" />
+      </a-card>
+      <a-card class="top-news-item" hoverable>
+        <img
+          alt="example"
+          src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+          slot="cover"
+        />
+        <a-card-meta title="Card title" description="This is the description" />
+      </a-card>
+      <a-card class="top-news-item" hoverable>
+        <img
+          alt="example"
+          src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+          slot="cover"
+        />
+        <a-card-meta title="Card title" description="This is the description" />
+      </a-card>
+    </div>
     <Breadcrumbs :currentPage="{ name: 'Top' }" />
   </div>
 </template>
@@ -38,11 +64,15 @@ export default {
 
 <style lang="scss" scoped>
 .top {
+  height: 100%;
+  position: relative;
   background: color(white, base);
-  padding-bottom: 1px;
+  margin: 0 24px;
+  padding-bottom: 8px;
   min-height: 280px;
 
   &-carousel {
+    margin: 0 -24px 20px;
     img {
       width: 100%;
     }
@@ -52,6 +82,24 @@ export default {
     text-align: center;
     font-family: Garton;
     font-size: 28px;
+    margin-bottom: 10px;
+
+    &-list {
+      display: flex;
+      justify-content: space-between;
+      @include media(sm) {
+        flex-wrap: wrap;
+      }
+    }
+
+    &-item {
+      display: inline-block;
+      width: 33%;
+      @include media(sm) {
+        width: 100%;
+        border: 1px solid color(gray, light);
+      }
+    }
   }
 
   /deep/ .VueCarousel-dot-container {

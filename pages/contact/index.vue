@@ -86,6 +86,8 @@ export default {
 
 <style lang="scss" scoped>
 .contact {
+  height: 100%;
+  position: relative;
   background: color(white, base);
   padding: 24px;
   padding-bottom: 8px;
