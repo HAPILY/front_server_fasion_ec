@@ -20,30 +20,14 @@
     <section class="top-section">
       <h1 class="top-news">News</h1>
       <div class="top-news-list">
-        <a-card class="top-news-item" hoverable>
-          <img
-            alt="example"
-            src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-            slot="cover"
-          />
-          <a-card-meta title="Card title" description="This is the description" />
-        </a-card>
-        <a-card class="top-news-item" hoverable>
-          <img
-            alt="example"
-            src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-            slot="cover"
-          />
-          <a-card-meta title="Card title" description="This is the description" />
-        </a-card>
-        <a-card class="top-news-item" hoverable>
-          <img
-            alt="example"
-            src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-            slot="cover"
-          />
-          <a-card-meta title="Card title" description="This is the description" />
-        </a-card>
+        <Card
+          v-for="i in 3"
+          :key="i"
+          alt="example"
+          src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+          title="Card title"
+          description="This is the description"
+        />
       </div>
       <a-button class="top-more" size="large" type="primary">
         ニュースをもっと見る
@@ -53,30 +37,14 @@
     <section class="top-section">
       <h1 class="top-items">Items</h1>
       <div class="top-news-list">
-        <a-card class="top-news-item" hoverable>
-          <img
-            alt="example"
-            src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-            slot="cover"
-          />
-          <a-card-meta title="Card title" description="This is the description" />
-        </a-card>
-        <a-card class="top-news-item" hoverable>
-          <img
-            alt="example"
-            src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-            slot="cover"
-          />
-          <a-card-meta title="Card title" description="This is the description" />
-        </a-card>
-        <a-card class="top-news-item" hoverable>
-          <img
-            alt="example"
-            src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-            slot="cover"
-          />
-          <a-card-meta title="Card title" description="This is the description" />
-        </a-card>
+        <Card
+          v-for="i in 3"
+          :key="i"
+          alt="example"
+          src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+          title="Card title"
+          description="This is the description"
+        />
       </div>
       <a-button class="top-more" size="large" type="primary">
         アイテムをもっと見る
@@ -95,12 +63,14 @@
 import Carousel from "vue-carousel/src/Carousel.vue";
 import Slide from "vue-carousel/src/Slide.vue";
 import Breadcrumbs from "@/components/global/Breadcrumbs.vue";
+import Card from "@/components/card/Card";
 
 export default {
   components: {
     Carousel,
     Slide,
-    Breadcrumbs
+    Breadcrumbs,
+    Card
   }
 };
 </script>
