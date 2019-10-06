@@ -1,6 +1,6 @@
 <template>
   <div class="contact">
-    <h1 class="contact-title">お問い合わせ</h1>
+    <h1 class="contact-title">Contact</h1>
     <a-form :form="form" @submit="handleSubmit">
       <a-form-item
         class="contact-name"
@@ -98,6 +98,7 @@ export default {
     font-weight: bold;
     margin-bottom: 28px;
     text-align: center;
+    font-family: Garton;
   }
 
   &-name,
