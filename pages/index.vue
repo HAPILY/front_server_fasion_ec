@@ -17,33 +17,76 @@
         <img src="http://placehold.jp/24/20A0E0/fad867/600x200.png" />
       </Slide>
     </Carousel>
-    <h1 class="top-news">News</h1>
-    <div class="top-news-list">
-      <a-card class="top-news-item" hoverable>
-        <img
-          alt="example"
-          src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-          slot="cover"
-        />
-        <a-card-meta title="Card title" description="This is the description" />
-      </a-card>
-      <a-card class="top-news-item" hoverable>
-        <img
-          alt="example"
-          src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-          slot="cover"
-        />
-        <a-card-meta title="Card title" description="This is the description" />
-      </a-card>
-      <a-card class="top-news-item" hoverable>
-        <img
-          alt="example"
-          src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-          slot="cover"
-        />
-        <a-card-meta title="Card title" description="This is the description" />
-      </a-card>
-    </div>
+    <section class="top-section">
+      <h1 class="top-news">News</h1>
+      <div class="top-news-list">
+        <a-card class="top-news-item" hoverable>
+          <img
+            alt="example"
+            src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+            slot="cover"
+          />
+          <a-card-meta title="Card title" description="This is the description" />
+        </a-card>
+        <a-card class="top-news-item" hoverable>
+          <img
+            alt="example"
+            src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+            slot="cover"
+          />
+          <a-card-meta title="Card title" description="This is the description" />
+        </a-card>
+        <a-card class="top-news-item" hoverable>
+          <img
+            alt="example"
+            src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+            slot="cover"
+          />
+          <a-card-meta title="Card title" description="This is the description" />
+        </a-card>
+      </div>
+      <a-button class="top-more" size="large" type="primary">
+        ニュースをもっと見る
+        <a-icon type="right" />
+      </a-button>
+    </section>
+    <section class="top-section">
+      <h1 class="top-items">Items</h1>
+      <div class="top-news-list">
+        <a-card class="top-news-item" hoverable>
+          <img
+            alt="example"
+            src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+            slot="cover"
+          />
+          <a-card-meta title="Card title" description="This is the description" />
+        </a-card>
+        <a-card class="top-news-item" hoverable>
+          <img
+            alt="example"
+            src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+            slot="cover"
+          />
+          <a-card-meta title="Card title" description="This is the description" />
+        </a-card>
+        <a-card class="top-news-item" hoverable>
+          <img
+            alt="example"
+            src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+            slot="cover"
+          />
+          <a-card-meta title="Card title" description="This is the description" />
+        </a-card>
+      </div>
+      <a-button class="top-more" size="large" type="primary">
+        アイテムをもっと見る
+        <a-icon type="right" />
+      </a-button>
+    </section>
+    <section class="top-section">
+      <h1 class="top-items">Online Store</h1>
+      <a-button class="top-store" icon="shopping-cart" size="large" type="primary">オンラインストアへ</a-button>
+    </section>
     <Breadcrumbs :currentPage="{ name: 'Top' }" />
   </div>
 </template>
@@ -72,18 +115,23 @@ export default {
   min-height: 280px;
 
   &-carousel {
-    margin: 0 -24px 20px;
+    margin: 0 -24px 30px;
     img {
       width: 100%;
     }
   }
 
-  &-news {
-    text-align: center;
-    font-family: Garton;
-    font-size: 28px;
-    margin-bottom: 10px;
+  &-section {
+    margin-bottom: 30px;
+    > h1 {
+      text-align: center;
+      font-family: Garton;
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+  }
 
+  &-news {
     &-list {
       display: flex;
       justify-content: space-between;
@@ -100,6 +148,17 @@ export default {
         border: 1px solid color(gray, light);
       }
     }
+  }
+
+  &-store {
+    display: block;
+    margin: 20px auto;
+    width: 50%;
+  }
+
+  &-more {
+    display: block;
+    margin: 5px auto;
   }
 
   /deep/ .VueCarousel-dot-container {
