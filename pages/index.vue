@@ -6,17 +6,8 @@
       :autoplay="true"
       :loop="true"
       :autoplay-timeout="10000"
-    >
-      <Slide>
-        <img src="https://placehold.jp/600x200.png" />
-      </Slide>
-      <Slide>
-        <img src="http://placehold.jp/24/cc9999/993333/600x200.png" />
-      </Slide>
-      <Slide>
-        <img src="http://placehold.jp/24/20A0E0/fad867/600x200.png" />
-      </Slide>
-    </Carousel>
+      :images="carouselImage"
+    />
     <section class="top-section">
       <h1 class="top-news">News</h1>
       <div class="top-news-list">
@@ -63,17 +54,15 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 
-import Carousel from "vue-carousel/src/Carousel.vue";
-import Slide from "vue-carousel/src/Slide.vue";
 import Breadcrumbs from "@/components/global/Breadcrumbs.vue";
 import Card from "@/components/card/Card";
+import Carousel from "@/components/carousel/Carousel";
 
 export default {
   components: {
-    Carousel,
-    Slide,
     Breadcrumbs,
-    Card
+    Card,
+    Carousel
   },
   computed: {
     ...mapGetters("item", {
@@ -81,6 +70,20 @@ export default {
     }),
     list() {
       return this.getItemList;
+    },
+    carouselImage() {
+      return [
+        {
+          src: "https://placehold.jp/600x200.png",
+          alt: "example"
+        },
+        {
+          src: "http://placehold.jp/24/cc9999/993333/600x200.png"
+        },
+        {
+          src: "http://placehold.jp/24/20A0E0/fad867/600x200.png"
+        }
+      ];
     }
   },
   created() {
@@ -108,9 +111,6 @@ export default {
 
   &-carousel {
     margin: 0 -24px 30px;
-    img {
-      width: 100%;
-    }
   }
 
   &-section {
