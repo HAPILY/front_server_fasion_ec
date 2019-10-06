@@ -23,6 +23,7 @@
         <Card
           v-for="i in 3"
           :key="i"
+          class="top-news-item"
           alt="example"
           src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
           title="Card title"
@@ -35,15 +36,15 @@
       </a-button>
     </section>
     <section class="top-section">
-      <h1 class="top-items">Items</h1>
-      <div class="top-news-list">
+      <h1 class="top-item">Items</h1>
+      <div class="top-item-list">
         <Card
-          v-for="i in 3"
-          :key="i"
-          alt="example"
-          src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-          title="Card title"
-          description="This is the description"
+          v-for="item in list"
+          :key="item.id"
+          class="top-item-item"
+          :src="item.images[0].src"
+          :title="item.name"
+          :description="`￥${item.price}`"
         />
       </div>
       <a-button class="top-more" size="large" type="primary">
@@ -60,6 +61,8 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
+
 import Carousel from "vue-carousel/src/Carousel.vue";
 import Slide from "vue-carousel/src/Slide.vue";
 import Breadcrumbs from "@/components/global/Breadcrumbs.vue";
@@ -71,6 +74,25 @@ export default {
     Slide,
     Breadcrumbs,
     Card
+  },
+  computed: {
+    ...mapGetters("item", {
+      getItemList: "list"
+    }),
+    list() {
+      return this.getItemList;
+    }
+  },
+  created() {
+    this.fetch();
+  },
+  methods: {
+    ...mapActions("item", {
+      fetchItemList: "fetchList"
+    }),
+    async fetch() {
+      await this.fetchItemList();
+    }
   }
 };
 </script>
@@ -101,7 +123,8 @@ export default {
     }
   }
 
-  &-news {
+  &-news,
+  &-item {
     &-list {
       display: flex;
       justify-content: space-between;

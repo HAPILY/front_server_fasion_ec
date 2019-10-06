@@ -1,5 +1,12 @@
+const nodeEnv = `${process.env.NODE_ENV || "development"}`;
+const env = require(`./env.${nodeEnv}.js`);
+
 export default {
   mode: "spa",
+  env: {
+    ...env,
+    NODE_ENV: process.env.NODE_ENV
+  },
   /*
    ** Headers of the page
    */
@@ -51,7 +58,12 @@ export default {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    proxy: true
+  },
+  proxy: {
+    "/api": "http://localhost:8100/"
+  },
   /*
    ** Build configuration
    */
