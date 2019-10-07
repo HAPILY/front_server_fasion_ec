@@ -1,1 +1,1 @@
-module.exports = ["./api/item/normal"];
+module.exports = ["./api/contact/post", "./api/item/normal"];
