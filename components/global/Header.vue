@@ -24,12 +24,17 @@
         </a-menu-item>
       </a-menu>
     </a-layout-header>
+    <div class="header-bg"
+      v-show="!collapsed"
+      @click="onClose"
+    />
     <a-layout-sider
+      v-model="collapsed"
       class="header-sider"
       breakpoint="lg"
       collapsedWidth="0"
       @collapse="onCollapse"
-      @breakpoint="onBreakpoint"
+      :trigger="null"
     >
       <a-menu
         theme="dark"
@@ -37,11 +42,6 @@
         :defaultSelectedKeys="[path]"
         :selectedKeys="[path]"
       >
-        <a-menu-item class="header-menu-item">
-          <nuxt-link to="/">
-            <img src="https://placehold.jp/120x40.png">
-          </nuxt-link>
-        </a-menu-item>
         <a-menu-item
           class="header-menu-item"
           v-for="item in items"
@@ -53,6 +53,20 @@
         </a-menu-item>
       </a-menu>
     </a-layout-sider>
+    <a-layout>
+      <a-layout-header class="header-sp-head">
+        <a-icon
+          class="header-trigger"
+          :type="collapsed ? 'menu-unfold' : 'menu-fold'"
+          @click="()=> collapsed = !collapsed"
+        />
+        <div class="header-sp-logo">
+          <nuxt-link to="/">
+            <img src="https://placehold.jp/120x40.png">
+          </nuxt-link>
+        </div>
+      </a-layout-header>
+    </a-layout>
   </div>
 </template>
 
@@ -69,15 +83,16 @@ export default {
   },
   data() {
     return {
-      items: CONST.Header.items
+      items: CONST.Header.items,
+      collapsed: false
     };
   },
   methods: {
-    onCollapse(collapsed, type) {
-      console.log(collapsed, type);
+    onCollapse(collapsed) {
+      this.collapsed = collapsed
     },
-    onBreakpoint(broken) {
-      console.log(broken);
+    onClose() {
+      this.onCollapse(true)
     }
   }
 };
@@ -90,12 +105,7 @@ export default {
   z-index: 2;
   &-nav {
     @include media(sm) {
-      width: 100%;
-    }
-    > ul {
-      @include media(sm) {
-        display: none;
-      }
+      display: none;
     }
   }
   &-sider {
@@ -114,7 +124,11 @@ export default {
     margin: 16px 24px 16px 50px;
     float: left;
     @include media(sm) {
-      display: none;
+      display: block;
+      margin: 0px auto;
+      float: none;
+      padding-top: 10px;
+      background: none;
     }
   }
 
@@ -128,15 +142,53 @@ export default {
     }
   }
 
-  /deep/ .ant-layout-sider-zero-width-trigger {
-    top: -53px !important;
-    right: -53px !important;
-    width: 40px !important;
+  &-bg {
+    display: none;
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: color(black, base);
+    opacity: 0.3;
+    @include media(sm) {
+      display: block;
+    }
   }
+
+  &-sp {
+    &-head {
+      display: flex;
+      align-items: center;
+      background: color(white, base);
+    }
+    &-logo {
+      margin: 0 auto;
+      display: block;
+    }
+  }
+
+  &-trigger {
+    position: absolute;
+    left: 15px;
+    > svg {
+      width: 36px;
+      height: 36px;
+    }
+  }
+
   /deep/ .ant-layout-sider-children {
-    position: absolute !important;
-    top: -50px !important;
-    left: 20px !important;
+    width: 100%;
+    position: absolute;
+    padding-top: 64px;
+    top: -64px;
+    left: 0px;
+    background: rgb(0, 21, 41);
+  }
+  /deep/ .ant-layout-sider-zero-width-trigger {
+    width: 40px;
+    top: -55px;
+    left: 15px;
   }
 }
 </style>
