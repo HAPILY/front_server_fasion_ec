@@ -9,7 +9,9 @@
       :images="carouselImage"
     />
     <section class="top-section">
-      <h1 class="top-news">News</h1>
+      <h1 class="top-news">
+        News
+      </h1>
       <div class="top-news-list">
         <Card
           v-for="i in 3"
@@ -21,13 +23,19 @@
           description="This is the description"
         />
       </div>
-      <a-button class="top-more" size="large" type="primary">
+      <a-button
+        class="top-more"
+        size="large"
+        type="primary"
+      >
         ニュースをもっと見る
         <a-icon type="right" />
       </a-button>
     </section>
     <section class="top-section">
-      <h1 class="top-item">Items</h1>
+      <h1 class="top-item">
+        Items
+      </h1>
       <div class="top-item-list">
         <Card
           v-for="item in list"
@@ -38,14 +46,27 @@
           :description="`￥${item.price}`"
         />
       </div>
-      <a-button class="top-more" size="large" type="primary">
+      <a-button
+        class="top-more"
+        size="large"
+        type="primary"
+      >
         アイテムをもっと見る
         <a-icon type="right" />
       </a-button>
     </section>
     <section class="top-section">
-      <h1 class="top-items">Online Store</h1>
-      <a-button class="top-store" icon="shopping-cart" size="large" type="primary">オンラインストアへ</a-button>
+      <h1 class="top-items">
+        Online Store
+      </h1>
+      <a-button
+        class="top-store"
+        icon="shopping-cart"
+        size="large"
+        type="primary"
+      >
+        オンラインストアへ
+      </a-button>
     </section>
     <Breadcrumbs :currentPage="{ name: 'Top' }" />
   </div>

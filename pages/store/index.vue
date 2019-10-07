@@ -1,11 +1,19 @@
 <template>
   <div class="store">
-    <h1 class="store-title">Online Store</h1>
+    <h1 class="store-title">
+      Online Store
+    </h1>
     <div class="store-visual">
-      <img alt="example" src="~/assets/images/demo.png" slot="cover" />
+      <img
+        alt="example"
+        src="~/assets/images/demo.png"
+        slot="cover"
+      >
     </div>
     <section class="store-section">
-      <h2 class="store-subtitle">Pickup Item</h2>
+      <h2 class="store-subtitle">
+        Pickup Item
+      </h2>
       <span class="_detail">ピックアップアイテム</span>
       <div class="store-pickup-list">
         <Card
@@ -21,7 +29,9 @@
     </section>
 
     <section class="store-section">
-      <h2 class="store-subtitle">New Item</h2>
+      <h2 class="store-subtitle">
+        New Item
+      </h2>
       <span class="_detail">最新アイテム</span>
       <div class="store-new-list">
         <Card

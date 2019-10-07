@@ -3,7 +3,7 @@
     <a-layout-header class="header-nav">
       <div class="header-logo">
         <nuxt-link to="/">
-          <img src="https://placehold.jp/120x40.png" />
+          <img src="https://placehold.jp/120x40.png">
         </nuxt-link>
       </div>
       <a-menu
@@ -13,8 +13,14 @@
         :defaultSelectedKeys="[path]"
         :selectedKeys="[path]"
       >
-        <a-menu-item class="header-menu-item" v-for="item in items" :key="item.to">
-          <nuxt-link :to="item.to">{{ item.title }}</nuxt-link>
+        <a-menu-item
+          class="header-menu-item"
+          v-for="item in items"
+          :key="item.to"
+        >
+          <nuxt-link :to="item.to">
+            {{ item.title }}
+          </nuxt-link>
         </a-menu-item>
       </a-menu>
     </a-layout-header>
@@ -25,14 +31,25 @@
       @collapse="onCollapse"
       @breakpoint="onBreakpoint"
     >
-      <a-menu theme="dark" mode="inline" :defaultSelectedKeys="[path]" :selectedKeys="[path]">
+      <a-menu
+        theme="dark"
+        mode="inline"
+        :defaultSelectedKeys="[path]"
+        :selectedKeys="[path]"
+      >
         <a-menu-item class="header-menu-item">
           <nuxt-link to="/">
-            <img src="https://placehold.jp/120x40.png" />
+            <img src="https://placehold.jp/120x40.png">
           </nuxt-link>
         </a-menu-item>
-        <a-menu-item class="header-menu-item" v-for="item in items" :key="item.to">
-          <nuxt-link :to="item.to">{{ item.title }}</nuxt-link>
+        <a-menu-item
+          class="header-menu-item"
+          v-for="item in items"
+          :key="item.to"
+        >
+          <nuxt-link :to="item.to">
+            {{ item.title }}
+          </nuxt-link>
         </a-menu-item>
       </a-menu>
     </a-layout-sider>

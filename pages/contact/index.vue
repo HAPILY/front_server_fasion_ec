@@ -1,7 +1,12 @@
 <template>
   <div class="contact">
-    <h1 class="contact-title">Contact</h1>
-    <a-form :form="form" @submit="handleSubmit">
+    <h1 class="contact-title">
+      Contact
+    </h1>
+    <a-form
+      :form="form"
+      @submit="handleSubmit"
+    >
       <a-form-item
         class="contact-name"
         label="名前"
@@ -48,14 +53,33 @@
           :autosize="{ minRows: 4, maxRows: 10 }"
         />
       </a-form-item>
-      <a-form-item class="contact-submit-pc" :wrapper-col="{ span: 15, offset: 5 }">
-        <a-button type="primary" html-type="submit">送信</a-button>
+      <a-form-item
+        class="contact-submit-pc"
+        :wrapper-col="{ span: 15, offset: 5 }"
+      >
+        <a-button
+          type="primary"
+          html-type="submit"
+        >
+          送信
+        </a-button>
       </a-form-item>
-      <a-form-item class="contact-submit-sp" :wrapper-col="{ span: 15 }">
-        <a-button type="primary" html-type="submit">送信</a-button>
+      <a-form-item
+        class="contact-submit-sp"
+        :wrapper-col="{ span: 15 }"
+      >
+        <a-button
+          type="primary"
+          html-type="submit"
+        >
+          送信
+        </a-button>
       </a-form-item>
     </a-form>
-    <Breadcrumbs :parentPages="[{ path: '/', name: 'トップ' }]" :currentPage="{ name: 'お問い合わせ' }" />
+    <Breadcrumbs
+      :parentPages="[{ path: '/', name: 'トップ' }]"
+      :currentPage="{ name: 'お問い合わせ' }"
+    />
   </div>
 </template>
 
@@ -66,13 +90,13 @@ export default {
   components: {
     Breadcrumbs
   },
-  data() {
+  data () {
     return {
       form: this.$form.createForm(this)
     };
   },
   methods: {
-    handleSubmit(e) {
+    handleSubmit (e) {
       e.preventDefault();
       this.form.validateFields((err, values) => {
         if (!err) {

@@ -6,8 +6,14 @@
     :loop="loop"
     :autoplay-timeout="timeout"
   >
-    <Slide v-for="(img, i) in images" :key="i">
-      <img :src="img.src" :alt="img.alt" />
+    <Slide
+      v-for="(img, i) in images"
+      :key="i"
+    >
+      <img
+        :src="img.src"
+        :alt="img.alt"
+      >
     </Slide>
   </VueCarousel>
 </template>

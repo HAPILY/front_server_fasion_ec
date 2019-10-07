@@ -1,7 +1,12 @@
 <template>
   <a-breadcrumb class="breadcrumb">
-    <a-breadcrumb-item v-for="page in parentPages" :key="page.name">
-      <nuxt-link :to="page.path">{{ page.name }}</nuxt-link>
+    <a-breadcrumb-item
+      v-for="page in parentPages"
+      :key="page.name"
+    >
+      <nuxt-link :to="page.path">
+        {{ page.name }}
+      </nuxt-link>
     </a-breadcrumb-item>
     <a-breadcrumb-item>{{ currentPage.name }}</a-breadcrumb-item>
   </a-breadcrumb>

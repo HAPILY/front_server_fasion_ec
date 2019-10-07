@@ -2,14 +2,18 @@
   <div class="about">
     <h1>Concept</h1>
     <div class="about-visual">
-      <img alt="example" src="~/assets/images/demo.png" slot="cover" />
+      <img
+        alt="example"
+        src="~/assets/images/demo.png"
+        slot="cover"
+      >
     </div>
     <div class="about-main">
       <h2>変わらぬ想いでよろこばれる美味しさを</h2>
       <div class="about-main-concept">
         中尾清月堂は、お客様によろこばれる美味しさを大切にしています。
-        <br />創業当時から長年愛されるお菓子から、時代にあった新しいお菓子まで、
-        <br />そのひとつひとつが今も職人の手で、まごころを込めてつくられています。
+        <br>創業当時から長年愛されるお菓子から、時代にあった新しいお菓子まで、
+        <br>そのひとつひとつが今も職人の手で、まごころを込めてつくられています。
       </div>
     </div>
     <Breadcrumbs :currentPage="{ name: 'About' }" />
