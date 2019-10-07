@@ -129,8 +129,8 @@ export default {
       left: 15px;
       color: color(white, base);
       > svg {
-        width: 36px;
-        height: 36px;
+        width: 26px;
+        height: 26px;
       }
     }
 
@@ -141,9 +141,15 @@ export default {
       position: absolute;
       right: 30px;
       top: 0;
+      @include media(sm) {
+        right: 20px;
+      }
     }
     &-cart {
       margin-right: 30px;
+      @include media(sm) {
+        margin-right: 20px;
+      }
     }
     &-icon {
       color: color(white, base);
@@ -157,19 +163,19 @@ export default {
       display: none;
     }
   }
+}
 
-  /deep/ .ant-layout-sider-children {
-    width: 100%;
-    position: absolute;
-    padding-top: 60px;
-    top: 0px;
-    left: 0px;
-    background: rgb(0, 21, 41);
-  }
-  /deep/ .ant-layout-sider-zero-width-trigger {
-    width: 40px;
-    top: -55px;
-    left: 15px;
-  }
+/deep/ .ant-layout-sider-children {
+  width: 100%;
+  position: absolute;
+  padding-top: 60px;
+  top: 0px;
+  left: 0px;
+  background: rgb(0, 21, 41);
+}
+/deep/ .ant-layout-sider-zero-width-trigger {
+  width: 40px;
+  top: -55px;
+  left: 15px;
 }
 </style>

@@ -17,13 +17,12 @@
       <span class="_detail">ピックアップアイテム</span>
       <div class="store-pickup-list">
         <Card
-          v-for="i in 10"
-          :key="i"
+          v-for="item in pickup"
+          :key="item.id"
           class="store-pickup-item"
-          alt="example"
-          src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-          title="Card title"
-          description="This is the description"
+          :src="item.images[0].src"
+          :title="item.name"
+          :description="`￥${priceComma(item.price)}`"
         />
       </div>
     </section>
@@ -35,13 +34,12 @@
       <span class="_detail">最新アイテム</span>
       <div class="store-new-list">
         <Card
-          v-for="i in 5"
-          :key="i"
+          v-for="item in rank"
+          :key="item.id"
           class="store-new-item"
-          alt="example"
-          src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-          title="Card title"
-          description="This is the description"
+          :src="item.images[0].src"
+          :title="item.name"
+          :description="`￥${priceComma(item.price)}`"
         />
       </div>
     </section>
@@ -50,6 +48,8 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
+
 import Breadcrumbs from "@/components/global/Breadcrumbs.vue";
 import Card from "@/components/card/Card";
 
@@ -57,6 +57,35 @@ export default {
   components: {
     Breadcrumbs,
     Card
+  },
+  computed: {
+    ...mapGetters('item', {
+      pickupList: 'pickupList',
+      rankList: 'rankList'
+    }),
+    pickup() {
+      return this.pickupList
+    },
+    rank() {
+      return this.rankList
+    },
+    priceComma() {
+      return function(price) {
+        return String(price).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
+      }
+    }
+  },
+  created() {
+    this.fetch()
+  },
+  methods: {
+    ...mapActions('item', {
+      fetchPickupList: 'fetchPickupList',
+      fetchRankList: 'fetchRankList'
+    }),
+    async fetch() {
+      await Promise.all([this.fetchPickupList(), this.fetchRankList()])
+    }
   }
 };
 </script>

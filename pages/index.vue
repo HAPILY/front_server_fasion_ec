@@ -43,7 +43,7 @@
           class="top-item-item"
           :src="item.images[0].src"
           :title="item.name"
-          :description="`￥${item.price}`"
+          :description="`￥${priceComma(item.price)}`"
         />
       </div>
       <a-button
@@ -105,6 +105,11 @@ export default {
           src: "http://placehold.jp/24/20A0E0/fad867/600x200.png"
         }
       ];
+    },
+    priceComma() {
+      return function(price) {
+        return String(price).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
+      }
     }
   },
   created() {

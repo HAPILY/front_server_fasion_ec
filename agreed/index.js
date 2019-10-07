@@ -1,1 +1,6 @@
-module.exports = ["./api/contact/post", "./api/item/normal"];
+module.exports = [
+  "./api/contact/post",
+  "./api/item/pickup",
+  "./api/item/rank",
+  "./api/item/normal"
+];
