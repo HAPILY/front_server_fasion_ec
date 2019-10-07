@@ -110,7 +110,7 @@ export default {
       width: 19%;
       margin-bottom: 10px;
       @include media(sm) {
-        width: 100%;
+        width: 49%;
         border: 1px solid color(gray, light);
       }
     }

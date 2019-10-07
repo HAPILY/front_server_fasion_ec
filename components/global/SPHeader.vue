@@ -43,6 +43,14 @@
         </div>
       </a-layout-header>
     </a-layout>
+    <div :class="[{'header-sp-nonStore': !isStore}, 'header-sp-icons']">
+      <div class="header-sp-cart">
+        <a-icon class="header-sp-icon" type="shopping-cart" />
+      </div>
+      <div class="header-sp-login">
+        <a-icon class="header-sp-icon" type="login" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -62,6 +70,11 @@ export default {
       items: CONST.Header.items,
       collapsed: false
     };
+  },
+  computed: {
+    isStore() {
+      return this.$route.name === 'store'
+    }
   },
   methods: {
     onCollapse(collapsed) {
@@ -120,7 +133,31 @@ export default {
         height: 36px;
       }
     }
+
+    &-icons {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      position: absolute;
+      right: 30px;
+      top: 0;
+    }
+    &-cart {
+      margin-right: 30px;
+    }
+    &-icon {
+      color: color(white, base);
+      > svg {
+        width: 26px;
+        height: 26px;
+      }
+    }
+
+    &-nonStore {
+      display: none;
+    }
   }
+
   /deep/ .ant-layout-sider-children {
     width: 100%;
     position: absolute;

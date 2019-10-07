@@ -23,6 +23,14 @@
           </nuxt-link>
         </a-menu-item>
       </a-menu>
+      <div :class="[{'header-nonStore': !isStore}, 'header-icons']">
+        <div class="header-cart">
+          <a-icon class="header-icon" type="shopping-cart" />
+        </div>
+        <div class="header-login">
+          <a-icon class="header-icon" type="login" />
+        </div>
+      </div>
     </a-layout-header>
     <SPHeader :path="path" />
   </div>
@@ -48,6 +56,11 @@ export default {
       items: CONST.Header.items,
       collapsed: false
     };
+  },
+  computed: {
+    isStore() {
+      return this.$route.name === 'store'
+    }
   },
   methods: {
     onCollapse(collapsed) {
@@ -93,18 +106,27 @@ export default {
     }
   }
 
-  /deep/ .ant-layout-sider-children {
-    width: 100%;
+  &-icons {
+    display: flex;
+    align-items: center;
+    height: 100%;
     position: absolute;
-    padding-top: 64px;
-    top: 0px;
-    left: 0px;
-    background: rgb(0, 21, 41);
+    right: 30px;
+    top: 0;
   }
-  /deep/ .ant-layout-sider-zero-width-trigger {
-    width: 40px;
-    top: -55px;
-    left: 15px;
+  &-cart {
+    margin-right: 20px;
+  }
+  &-icon {
+    color: color(white, base);
+    > svg {
+      width: 26px;
+      height: 26px;
+    }
+  }
+
+  &-nonStore {
+    display: none;
   }
 }
 </style>
