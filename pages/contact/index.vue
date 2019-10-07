@@ -15,7 +15,7 @@
       >
         <a-input
           v-decorator="[
-            '名前',
+            'name',
             { rules: [{ required: true, message: '必須項目です' }] }
           ]"
         />
@@ -28,7 +28,7 @@
       >
         <a-input
           v-decorator="[
-            'メールアドレス',
+            'mail',
             {
               rules: [{
                 type: 'email', message: 'メールアドレスの形式が間違っています',
@@ -47,7 +47,7 @@
       >
         <a-textarea
           v-decorator="[
-            'お問い合わせ内容',
+            'content',
             { rules: [{ required: true, message: '必須項目です' }] }
           ]"
           :autosize="{ minRows: 4, maxRows: 10 }"
@@ -96,12 +96,28 @@ export default {
     };
   },
   methods: {
-    handleSubmit (e) {
+    handleSubmit(e) {
       e.preventDefault();
       this.form.validateFields((err, values) => {
         if (!err) {
-          console.log("Received values of form: ", values);
+          const params = {
+            name: values.name,
+            mail: values.mail,
+            content: values.content
+          }
+          this.$axios.$post("/api/contact", params).then(res => {
+            this.openNotification(res)
+          })
         }
+      });
+    },
+    openNotification(val) {
+      const type = val.status === "SUCCESS" ? "success" : "error";
+      this.$notification.config({
+        placement: "bottomLeft",
+      });
+      this.$notification[type]({
+        message: val.data.message,
       });
     }
   }
