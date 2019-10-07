@@ -20,3 +20,16 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 ## Use Design Component
 
 [Ant Design of Vue](https://vue.ant.design/docs/vue/introduce/)
+
+## For Using VSCode
+
+```
+.vscode/settings.json
+
+{
+  "vetur.format.defaultFormatter.js": "vscode-typescript",
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
+  "editor.formatOnSave": false
+}
+
+```
