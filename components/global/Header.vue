@@ -24,57 +24,19 @@
         </a-menu-item>
       </a-menu>
     </a-layout-header>
-    <div class="header-bg"
-      v-show="!collapsed"
-      @click="onClose"
-    />
-    <a-layout-sider
-      v-model="collapsed"
-      class="header-sider"
-      breakpoint="lg"
-      collapsedWidth="0"
-      @collapse="onCollapse"
-      :trigger="null"
-    >
-      <a-menu
-        theme="dark"
-        mode="inline"
-        :defaultSelectedKeys="[path]"
-        :selectedKeys="[path]"
-      >
-        <a-menu-item
-          class="header-menu-item"
-          v-for="item in items"
-          :key="item.to"
-        >
-          <nuxt-link :to="item.to">
-            {{ item.title }}
-          </nuxt-link>
-        </a-menu-item>
-      </a-menu>
-    </a-layout-sider>
-    <a-layout>
-      <a-layout-header class="header-sp-head">
-        <a-icon
-          class="header-trigger"
-          :type="collapsed ? 'menu-unfold' : 'menu-fold'"
-          @click="()=> collapsed = !collapsed"
-        />
-        <div class="header-sp-logo">
-          <nuxt-link to="/">
-            <img src="https://placehold.jp/120x40.png">
-          </nuxt-link>
-        </div>
-      </a-layout-header>
-    </a-layout>
+    <SPHeader :path="path" />
   </div>
 </template>
 
 <script>
 import CONST from "@/const";
+import SPHeader from "./SPHeader"
 
 export default {
   name: "Header",
+  components: {
+    SPHeader
+  },
   props: {
     path: {
       type: String,
@@ -112,10 +74,6 @@ export default {
     @include media(md, lg, xl) {
       display: none;
     }
-    @include media(sm) {
-      position: fixed;
-      height: 100vh;
-    }
   }
   &-logo {
     width: 120px;
@@ -123,13 +81,6 @@ export default {
     background: rgba(255, 255, 255, 0.2);
     margin: 16px 24px 16px 50px;
     float: left;
-    @include media(sm) {
-      display: block;
-      margin: 0px auto;
-      float: none;
-      padding-top: 10px;
-      background: none;
-    }
   }
 
   &-menu {
@@ -142,46 +93,11 @@ export default {
     }
   }
 
-  &-bg {
-    display: none;
-    width: 100%;
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: color(black, base);
-    opacity: 0.3;
-    @include media(sm) {
-      display: block;
-    }
-  }
-
-  &-sp {
-    &-head {
-      display: flex;
-      align-items: center;
-      background: color(white, base);
-    }
-    &-logo {
-      margin: 0 auto;
-      display: block;
-    }
-  }
-
-  &-trigger {
-    position: absolute;
-    left: 15px;
-    > svg {
-      width: 36px;
-      height: 36px;
-    }
-  }
-
   /deep/ .ant-layout-sider-children {
     width: 100%;
     position: absolute;
     padding-top: 64px;
-    top: -64px;
+    top: 0px;
     left: 0px;
     background: rgb(0, 21, 41);
   }
