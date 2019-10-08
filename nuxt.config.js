@@ -57,6 +57,7 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     "@nuxtjs/axios",
+    '@nuxtjs/component-cache',
     ["@nuxtjs/pwa", { icon: false }]
   ],
   /*
@@ -82,6 +83,12 @@ export default {
       }
     },
     parallel: true,
+    optimization: {
+      splitChunks: {
+        name: 'vender',
+        chunks: 'initial'
+      }
+    },
     vendeer: ['moment'],
     plugins: [
       new MomentLocalesPlugin({

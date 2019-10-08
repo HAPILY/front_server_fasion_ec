@@ -14,23 +14,25 @@
       </h1>
       <div class="top-news-list">
         <Card
-          v-for="i in 3"
-          :key="i"
+          v-for="news in limitNews"
+          :key="news.id"
           class="top-news-item"
-          alt="example"
-          src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-          title="Card title"
-          description="This is the description"
+          :src="news.thumbnail"
+          :title="news.title"
+          :description="news.content"
+          :path="`/news/${news.id}`"
         />
       </div>
-      <a-button
-        class="top-more"
-        size="large"
-        type="primary"
-      >
-        ニュースをもっと見る
-        <a-icon type="right" />
-      </a-button>
+      <nuxt-link to="/news">
+        <a-button
+          class="top-more"
+          size="large"
+          type="primary"
+        >
+          ニュースをもっと見る
+          <a-icon type="right" />
+        </a-button>
+      </nuxt-link>
     </section>
     <section class="top-section">
       <h1 class="top-item">
@@ -38,35 +40,40 @@
       </h1>
       <div class="top-item-list">
         <Card
-          v-for="item in list.result"
+          v-for="item in limitItems"
           :key="item.id"
           class="top-item-item"
           :src="item.images[0]"
           :title="item.name"
           :description="`￥${priceComma(item.price)}`"
+          :path="`/store/${item.id}`"
         />
       </div>
-      <a-button
-        class="top-more"
-        size="large"
-        type="primary"
-      >
-        アイテムをもっと見る
-        <a-icon type="right" />
-      </a-button>
+      <nuxt-link to="/store">
+        <a-button
+          class="top-more"
+          size="large"
+          type="primary"
+        >
+          アイテムをもっと見る
+          <a-icon type="right" />
+        </a-button>
+      </nuxt-link>
     </section>
     <section class="top-section">
       <h1 class="top-items">
         Online Store
       </h1>
-      <a-button
-        class="top-store"
-        icon="shopping-cart"
-        size="large"
-        type="primary"
-      >
-        オンラインストアへ
-      </a-button>
+      <nuxt-link to="/store">
+        <a-button
+          class="top-store"
+          icon="shopping-cart"
+          size="large"
+          type="primary"
+        >
+          オンラインストアへ
+        </a-button>
+      </nuxt-link>
     </section>
     <Breadcrumbs :currentPage="{ name: 'Top' }" />
   </div>
@@ -76,9 +83,9 @@
 import { mapActions, mapGetters } from "vuex";
 import { isExpired } from '@/utils/store'
 
-import Breadcrumbs from "@/components/global/Breadcrumbs.vue";
-import Card from "@/components/card/Card";
-import Carousel from "@/components/carousel/Carousel";
+const Breadcrumbs = () => import("~/components/global/Breadcrumbs");
+const Card = () => import("@/components/card/Card");
+const Carousel = () => import("@/components/carousel/Carousel");
 
 export default {
   components: {
@@ -90,8 +97,22 @@ export default {
     ...mapGetters("item", {
       getItemList: "list"
     }),
-    list() {
+    ...mapGetters("news", {
+      getNewsList: "list"
+    }),
+    items() {
       return this.getItemList;
+    },
+    newsList() {
+      return this.getNewsList;
+    },
+    limitItems() {
+      if (!this.items.result) return []
+      return this.items.result.slice(0, 3);
+    },
+    limitNews() {
+      if (!this.newsList.result) return []
+      return this.newsList.result.slice(0, 3);
     },
     carouselImage() {
       return [
@@ -120,10 +141,19 @@ export default {
     ...mapActions("item", {
       fetchItemList: "fetchList"
     }),
+    ...mapActions("news", {
+      fetchNewsList: "fetchList"
+    }),
     async fetch() {
-      if (isExpired(this.list)) {
-        await this.fetchItemList();
+      let fetchList = []
+      if (isExpired(this.items)) {
+        fetchList.push(this.fetchItemList())
       }
+
+      if (isExpired(this.newsList)) {
+        fetchList.push(this.fetchNewsList())
+      }
+      await Promise.all(fetchList)
     }
   }
 };
@@ -156,6 +186,7 @@ export default {
   &-item {
     &-list {
       display: flex;
+      margin-bottom: 20px;
       justify-content: space-between;
       @include media(sm) {
         flex-wrap: wrap;

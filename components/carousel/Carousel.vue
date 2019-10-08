@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import VueCarousel from "vue-carousel/src/Carousel.vue";
-import Slide from "vue-carousel/src/Slide.vue";
+const VueCarousel = () => import("vue-carousel/src/Carousel");
+const Slide = () => import("vue-carousel/src/Slide");
 
 export default {
   name: "Carousel",

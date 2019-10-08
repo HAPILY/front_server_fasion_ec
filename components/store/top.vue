@@ -13,6 +13,7 @@
           :src="item.images[0]"
           :title="item.name"
           :description="`￥${priceComma(item.price)}`"
+          :path="`/store/${item.id}`"
         />
       </div>
     </section>
@@ -30,6 +31,7 @@
           :src="item.images[0]"
           :title="item.name"
           :description="`￥${priceComma(item.price)}`"
+          :path="`/store/${item.id}`"
         />
       </div>
     </section>
