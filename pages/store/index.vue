@@ -17,10 +17,10 @@
       <span class="_detail">ピックアップアイテム</span>
       <div class="store-pickup-list">
         <Card
-          v-for="item in pickup"
+          v-for="item in pickup.result"
           :key="item.id"
           class="store-pickup-item"
-          :src="item.images[0].src"
+          :src="item.images[0]"
           :title="item.name"
           :description="`￥${priceComma(item.price)}`"
         />
@@ -34,10 +34,10 @@
       <span class="_detail">最新アイテム</span>
       <div class="store-new-list">
         <Card
-          v-for="item in rank"
+          v-for="item in rank.result"
           :key="item.id"
           class="store-new-item"
-          :src="item.images[0].src"
+          :src="item.images[0]"
           :title="item.name"
           :description="`￥${priceComma(item.price)}`"
         />
@@ -49,6 +49,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import { isExpired } from '@/utils/store'
 
 import Breadcrumbs from "@/components/global/Breadcrumbs.vue";
 import Card from "@/components/card/Card";
@@ -84,7 +85,15 @@ export default {
       fetchRankList: 'fetchRankList'
     }),
     async fetch() {
-      await Promise.all([this.fetchPickupList(), this.fetchRankList()])
+      let fetchList = []
+      if (isExpired(this.pickup)) {
+        fetchList.push(this.fetchPickupList())
+      }
+
+      if (isExpired(this.rank)) {
+        fetchList.push(this.fetchRankList())
+      }
+      await Promise.all(fetchList)
     }
   }
 };
