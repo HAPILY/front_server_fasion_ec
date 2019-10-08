@@ -10,90 +10,56 @@
         slot="cover"
       >
     </div>
-    <section class="store-section">
-      <h2 class="store-subtitle">
-        Pickup Item
-      </h2>
-      <span class="_detail">ピックアップアイテム</span>
-      <div class="store-pickup-list">
-        <Card
-          v-for="item in pickup.result"
-          :key="item.id"
-          class="store-pickup-item"
-          :src="item.images[0]"
-          :title="item.name"
-          :description="`￥${priceComma(item.price)}`"
-        />
+    <div class="store-tabWrap">
+      <div class="store-tab">
+        <a-menu
+          v-model="current"
+          mode="horizontal"
+        >
+          <a-menu-item
+            key="category1"
+            class="store-tab-item"
+          >
+            <a-icon type="mail" />category1
+          </a-menu-item>
+          <a-menu-item
+            key="category2"
+            class="store-tab-item"
+          >
+            <a-icon type="mail" />category2
+          </a-menu-item>
+          <a-menu-item
+            key="category3"
+            class="store-tab-item"
+          >
+            <a-icon type="mail" />category3
+          </a-menu-item>
+          <a-menu-item
+            key="category4"
+            class="store-tab-item"
+          >
+            <a-icon type="mail" />category4
+          </a-menu-item>
+        </a-menu>
       </div>
-    </section>
-
-    <section class="store-section">
-      <h2 class="store-subtitle">
-        New Item
-      </h2>
-      <span class="_detail">最新アイテム</span>
-      <div class="store-new-list">
-        <Card
-          v-for="item in rank.result"
-          :key="item.id"
-          class="store-new-item"
-          :src="item.images[0]"
-          :title="item.name"
-          :description="`￥${priceComma(item.price)}`"
-        />
-      </div>
-    </section>
+    </div>
+    <StoreTop v-if="current[0] === 'category1'" />
     <Breadcrumbs :currentPage="{ name: 'ストア' }" />
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-import { isExpired } from '@/utils/store'
-
 import Breadcrumbs from "@/components/global/Breadcrumbs.vue";
-import Card from "@/components/card/Card";
+import StoreTop from "@/components/store/top";
 
 export default {
   components: {
     Breadcrumbs,
-    Card
+    StoreTop
   },
-  computed: {
-    ...mapGetters('item', {
-      pickupList: 'pickupList',
-      rankList: 'rankList'
-    }),
-    pickup() {
-      return this.pickupList
-    },
-    rank() {
-      return this.rankList
-    },
-    priceComma() {
-      return function(price) {
-        return String(price).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
-      }
-    }
-  },
-  created() {
-    this.fetch()
-  },
-  methods: {
-    ...mapActions('item', {
-      fetchPickupList: 'fetchPickupList',
-      fetchRankList: 'fetchRankList'
-    }),
-    async fetch() {
-      let fetchList = []
-      if (isExpired(this.pickup)) {
-        fetchList.push(this.fetchPickupList())
-      }
-
-      if (isExpired(this.rank)) {
-        fetchList.push(this.fetchRankList())
-      }
-      await Promise.all(fetchList)
+  data() {
+    return {
+      current: ['category1']
     }
   }
 };
@@ -108,8 +74,20 @@ export default {
   padding-bottom: 8px;
   min-height: 280px;
 
-  &-section {
-    margin-bottom: 20px;
+  &-tabWrap {
+     text-align: center;
+     @include media(sm) {
+      display: none;
+    }
+  }
+  &-tab {
+    display: inline-block;
+    border-bottom: 1px solid color(gray, base);
+    margin-bottom: 30px;
+    &-item {
+      padding: 0 40px;
+      line-height: 32px;
+    }
   }
 
   &-visual {
@@ -123,42 +101,12 @@ export default {
     }
   }
 
-  &-title,
-  &-subtitle {
+  &-title {
     font-size: 24px;
     font-weight: bold;
     text-align: center;
     font-family: Garton;
-  }
-
-  &-title {
     margin-bottom: 28px;
   }
-
-  &-new,
-  &-pickup {
-    &-list {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-
-    &-item {
-      display: inline-block;
-      width: 19%;
-      margin-bottom: 10px;
-      @include media(sm) {
-        width: 49%;
-        border: 1px solid color(gray, light);
-      }
-    }
-  }
-}
-
-._detail {
-  display: block;
-  text-align: center;
-  font-size: 12px;
-  margin-bottom: 28px;
 }
 </style>

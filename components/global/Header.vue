@@ -24,6 +24,12 @@
         </a-menu-item>
       </a-menu>
       <div :class="[{'header-nonStore': !isStore}, 'header-icons']">
+        <a-input-search
+          class="header-search"
+          placeholder="Search Items"
+          style="width: 200px"
+          @search="onSearch"
+        />
         <div class="header-cart">
           <a-icon
             class="header-icon"
@@ -74,6 +80,9 @@ export default {
     },
     onClose() {
       this.onCollapse(true)
+    },
+    onSearch (value) {
+      console.log(value)
     }
   }
 };
@@ -115,6 +124,7 @@ export default {
   &-icons {
     display: flex;
     align-items: center;
+    width: 30%;
     height: 100%;
     position: absolute;
     right: 30px;
@@ -129,6 +139,9 @@ export default {
       width: 26px;
       height: 26px;
     }
+  }
+  &-search {
+    margin-right: 30px;
   }
 
   &-nonStore {
