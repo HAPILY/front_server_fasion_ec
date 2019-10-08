@@ -25,10 +25,16 @@
       </a-menu>
       <div :class="[{'header-nonStore': !isStore}, 'header-icons']">
         <div class="header-cart">
-          <a-icon class="header-icon" type="shopping-cart" />
+          <a-icon
+            class="header-icon"
+            type="shopping-cart"
+          />
         </div>
         <div class="header-login">
-          <a-icon class="header-icon" type="login" />
+          <a-icon
+            class="header-icon"
+            type="login"
+          />
         </div>
       </div>
     </a-layout-header>

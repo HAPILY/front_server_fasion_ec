@@ -1,18 +1,18 @@
 export const state = () => ({
-  list: [],
-  pickupList: [],
-  rankList: []
+  list: {},
+  pickupList: {},
+  rankList: {}
 });
 
 export const mutations = {
   setItemList(state, payload) {
-    state.list = payload;
+    state.list = { ...payload };
   },
   setPickupList(state, payload) {
-    state.pickupList = payload;
+    state.pickupList = { ...payload };
   },
   setRankList(state, payload) {
-    state.rankList = payload;
+    state.rankList = { ...payload };
   }
 };
 
@@ -26,7 +26,11 @@ export const actions = {
   async fetchList(context) {
     try {
       const res = await this.$axios.$get("/api/item");
-      context.commit("setItemList", res.data);
+      context.commit("setItemList", {
+        result: res.data,
+        fetchTime: new Date(),
+        expiryDate: this.$moment().add(1, 'hour').toDate()
+      });
     } catch (e) {
       console.log("error", e);
     }
@@ -34,7 +38,11 @@ export const actions = {
   async fetchPickupList(context) {
     try {
       const res = await this.$axios.$get("/api/item", { params: { type: "pickup", limit: 10 } });
-      context.commit("setPickupList", res.data);
+      context.commit("setPickupList", {
+        result: res.data,
+        fetchTime: new Date(),
+        expiryDate: this.$moment().add(1, 'hour').toDate()
+      });
     } catch (e) {
       console.log("error", e);
     }
@@ -42,7 +50,11 @@ export const actions = {
   async fetchRankList(context) {
     try {
       const res = await this.$axios.$get("/api/item", { params: { type: "rank", limit: 5 } });
-      context.commit("setRankList", res.data);
+      context.commit("setRankList", {
+        result: res.data,
+        fetchTime: new Date(),
+        expiryDate: this.$moment().add(1, 'hour').toDate()
+      });
     } catch (e) {
       console.log("error", e);
     }

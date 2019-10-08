@@ -38,10 +38,10 @@
       </h1>
       <div class="top-item-list">
         <Card
-          v-for="item in list"
+          v-for="item in list.result"
           :key="item.id"
           class="top-item-item"
-          :src="item.images[0].src"
+          :src="item.images[0]"
           :title="item.name"
           :description="`￥${priceComma(item.price)}`"
         />
@@ -74,6 +74,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import { isExpired } from '@/utils/store'
 
 import Breadcrumbs from "@/components/global/Breadcrumbs.vue";
 import Card from "@/components/card/Card";
@@ -120,7 +121,9 @@ export default {
       fetchItemList: "fetchList"
     }),
     async fetch() {
-      await this.fetchItemList();
+      if (isExpired(this.list)) {
+        await this.fetchItemList();
+      }
     }
   }
 };

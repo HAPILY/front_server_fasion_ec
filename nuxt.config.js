@@ -1,5 +1,6 @@
 const nodeEnv = `${process.env.NODE_ENV || "development"}`;
 const env = require(`./env.${nodeEnv}.js`);
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
 
 export default {
   mode: "spa",
@@ -38,7 +39,11 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ["@/plugins/antd-ui", { src: "~/plugins/vue-carousel", ssr: false }],
+  plugins: [
+    "@/plugins/antd-ui",
+    "@/plugins/moment",
+    { src: "~/plugins/vue-carousel", ssr: false }
+  ],
   /*
    ** Nuxt.js dev-modules
    */
@@ -77,6 +82,12 @@ export default {
       }
     },
     parallel: true,
+    vendeer: ['moment'],
+    plugins: [
+      new MomentLocalesPlugin({
+        localesToKeep: ['es-us', 'ja']
+      })
+    ],
     extend(config, ctx) {}
   }
 };

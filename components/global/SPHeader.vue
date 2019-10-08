@@ -1,6 +1,7 @@
 <template>
   <div class="header-sp">
-    <div class="header-sp-bg"
+    <div
+      class="header-sp-bg"
       v-show="!collapsed"
       @click="onClose"
     />
@@ -45,10 +46,16 @@
     </a-layout>
     <div :class="[{'header-sp-nonStore': !isStore}, 'header-sp-icons']">
       <div class="header-sp-cart">
-        <a-icon class="header-sp-icon" type="shopping-cart" />
+        <a-icon
+          class="header-sp-icon"
+          type="shopping-cart"
+        />
       </div>
       <div class="header-sp-login">
-        <a-icon class="header-sp-icon" type="login" />
+        <a-icon
+          class="header-sp-icon"
+          type="login"
+        />
       </div>
     </div>
   </div>
