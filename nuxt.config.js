@@ -90,6 +90,12 @@ export default {
       }
     },
     vendor: ['moment'],
+    html: {
+      minify: {
+        minifyCSS: true,
+        minifyJS: true
+      }
+    },
     plugins: [
       new MomentLocalesPlugin({
         localesToKeep: ['es-us', 'ja']

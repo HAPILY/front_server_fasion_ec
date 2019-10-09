@@ -1,4 +1,5 @@
 @font-face {
   font-family: "Garton";
+  font-display: swap;
   src: url("./garto16.ttf") format("truetype");
 }
