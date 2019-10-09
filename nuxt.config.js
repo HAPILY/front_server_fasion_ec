@@ -22,7 +22,9 @@ export default {
         content: process.env.npm_package_description || ""
       }
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
+    link: [
+      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" }
+    ]
   },
   /*
    ** Customize the progress-bar color
@@ -33,7 +35,7 @@ export default {
    */
   css: [
     "ant-design-vue/dist/antd.css",
-    "@/assets/fonts/font.css",
+    "@/static/assets/fonts/font.css",
     "@/assets/scss/index.scss"
   ],
   /*

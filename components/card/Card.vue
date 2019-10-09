@@ -1,11 +1,18 @@
 <template>
   <nuxt-link :to="path">
     <a-card hoverable>
-      <img
-        :alt="alt"
-        :src="src"
-        slot="cover"
-      >
+      <picture slot="cover">
+        <source
+          srcset="~/assets/images/A.webp"
+          class="img"
+          type="image/webp"
+        >
+        <img
+          class="card-image"
+          src="~/assets/images/A.png"
+          alt="img"
+        >
+      </picture>
       <a-card-meta
         :title="title"
         :description="description"
@@ -43,6 +50,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.card-image {
+  width: 100%;
+}
 /deep/ .ant-card-meta-description {
   text-overflow: ellipsis;
   overflow: hidden;
