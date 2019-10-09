@@ -2,11 +2,18 @@
   <div class="about">
     <h1>Concept</h1>
     <div class="about-visual">
-      <img
-        alt="example"
-        src="~/assets/images/demo.png"
-        slot="cover"
-      >
+      <picture>
+        <source
+          srcset="~/assets/images/demo.webp"
+          class="img"
+          type="image/webp"
+        >
+        <img
+          alt="example"
+          src="~/assets/images/demo.png"
+          slot="cover"
+        >
+      </picture>
     </div>
     <div class="about-main">
       <h2>変わらぬ想いでよろこばれる美味しさを</h2>

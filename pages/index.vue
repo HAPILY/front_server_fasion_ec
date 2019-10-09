@@ -6,7 +6,6 @@
       :autoplay="true"
       :loop="true"
       :autoplay-timeout="10000"
-      :images="carouselImage"
     />
     <section class="top-section">
       <h1 class="top-news">
@@ -114,20 +113,6 @@ export default {
       if (!this.newsList.result) return []
       return this.newsList.result.slice(0, 3);
     },
-    carouselImage() {
-      return [
-        {
-          src: "https://placehold.jp/600x200.png",
-          alt: "example"
-        },
-        {
-          src: "http://placehold.jp/24/cc9999/993333/600x200.png"
-        },
-        {
-          src: "http://placehold.jp/24/20A0E0/fad867/600x200.png"
-        }
-      ];
-    },
     priceComma() {
       return function(price) {
         return String(price).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
@@ -169,7 +154,11 @@ export default {
   min-height: 280px;
 
   &-carousel {
+    height: 400px;
     margin: 0 -24px 30px;
+    @include media(sm) {
+      height: 200px;
+    }
   }
 
   &-section {

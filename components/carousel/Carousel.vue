@@ -6,14 +6,31 @@
     :loop="loop"
     :autoplay-timeout="timeout"
   >
-    <Slide
-      v-for="(img, i) in images"
-      :key="i"
-    >
-      <img
-        :src="img.src"
-        :alt="img.alt"
-      >
+    <Slide>
+      <picture>
+        <source
+          srcset="~/assets/images/carousel1.webp"
+          class="img"
+          type="image/webp"
+        >
+        <img
+          src="~/assets/images/carousel1.png"
+          alt="img.alt"
+        >
+      </picture>
+    </Slide>
+    <Slide>
+      <picture>
+        <source
+          srcset="~/assets/images/carousel2.webp"
+          class="img"
+          type="image/webp"
+        >
+        <img
+          src="~/assets/images/carousel2.png"
+          alt="img.alt"
+        >
+      </picture>
     </Slide>
   </VueCarousel>
 </template>
@@ -29,10 +46,6 @@ export default {
     Slide
   },
   props: {
-    images: {
-      type: Array,
-      required: true
-    },
     autoplay: {
       type: Boolean,
       default: true
@@ -54,5 +67,12 @@ export default {
   img {
     width: 100%;
   }
+}
+
+/deep/ .VueCarousel-inner {
+  height: 100% !important;
+}
+/deep/ .VueCarousel-slide {
+  height: 100% !important;
 }
 </style>

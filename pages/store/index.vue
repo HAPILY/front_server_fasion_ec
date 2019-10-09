@@ -4,11 +4,18 @@
       Online Store
     </h1>
     <div class="store-visual">
-      <img
-        alt="example"
-        src="~/assets/images/demo.png"
-        slot="cover"
-      >
+      <picture>
+        <source
+          srcset="~/assets/images/demo.webp"
+          class="img"
+          type="image/webp"
+        >
+        <img
+          alt="example"
+          src="~/assets/images/demo.png"
+          slot="cover"
+        >
+      </picture>
     </div>
     <div class="store-tabWrap">
       <div class="store-tab">

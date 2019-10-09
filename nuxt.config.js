@@ -89,7 +89,7 @@ export default {
         chunks: 'initial'
       }
     },
-    vendeer: ['moment'],
+    vendor: ['moment'],
     plugins: [
       new MomentLocalesPlugin({
         localesToKeep: ['es-us', 'ja']
