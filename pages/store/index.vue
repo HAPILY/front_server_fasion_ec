@@ -56,8 +56,8 @@
 </template>
 
 <script>
-import Breadcrumbs from "@/components/global/Breadcrumbs.vue";
-import StoreTop from "@/components/store/top";
+const Breadcrumbs = () => import("~/components/global/Breadcrumbs");
+const StoreTop = () => import("~/components/store/top");
 
 export default {
   components: {
