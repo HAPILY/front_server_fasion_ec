@@ -31,9 +31,26 @@
     "eslint": "^6.5.1",
     "eslint-plugin-nuxt": ">=0.4.3",
     "eslint-plugin-vue": "^5.2.3",
+    "husky": "^3.0.8",
+    "lint-staged": "^9.4.2",
     "moment-locales-webpack-plugin": "^1.1.0",
     "node-sass": "^4.12.0",
     "npm-run-all": "^4.1.1",
     "sass-loader": "^7.2.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.vue": [
+      "eslint --ext .vue --fix",
+      "git add"
+    ]
   }
 }
