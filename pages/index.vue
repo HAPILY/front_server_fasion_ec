@@ -11,7 +11,10 @@
       <h1 class="top-news">
         News
       </h1>
-      <div class="top-news-list">
+      <div
+        v-if="limitNews"
+        class="top-news-list"
+      >
         <Card
           v-for="news in limitNews"
           :key="news.id"
@@ -23,6 +26,7 @@
           :path="`/news/${news.id}`"
         />
       </div>
+      <Spiner v-else />
       <nuxt-link to="/news">
         <a-button
           class="top-more"
@@ -38,7 +42,10 @@
       <h1 class="top-item">
         Items
       </h1>
-      <div class="top-item-list">
+      <div
+        v-if="limitItems"
+        class="top-item-list"
+      >
         <Card
           v-for="item in limitItems"
           :key="item.id"
@@ -50,6 +57,7 @@
           :path="`/store/${item.id}`"
         />
       </div>
+      <Spiner v-else />
       <nuxt-link to="/store">
         <a-button
           class="top-more"
@@ -87,12 +95,14 @@ import { isExpired } from '@/utils/store'
 const Breadcrumbs = () => import("~/components/global/Breadcrumbs");
 const Card = () => import("@/components/card/Card");
 const Carousel = () => import("@/components/carousel/Carousel");
+const Spiner = () => import("~/components/spiner/Spiner");
 
 export default {
   components: {
     Breadcrumbs,
     Card,
-    Carousel
+    Carousel,
+    Spiner
   },
   computed: {
     ...mapGetters("item", {
@@ -108,11 +118,11 @@ export default {
       return this.getNewsList;
     },
     limitItems() {
-      if (!this.items.result) return []
+      if (!this.items.result) return null
       return this.items.result.slice(0, 3);
     },
     limitNews() {
-      if (!this.newsList.result) return []
+      if (!this.newsList.result) return null
       return this.newsList.result.slice(0, 3);
     },
     priceComma() {

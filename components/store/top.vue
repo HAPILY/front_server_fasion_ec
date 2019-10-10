@@ -100,7 +100,7 @@ export default {
 
     &-title,
     &-subtitle {
-      font-size: 24px;
+      font-size: 32px;
       font-weight: bold;
       text-align: center;
       font-family: Garton;

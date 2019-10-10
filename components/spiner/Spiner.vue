@@ -13,11 +13,7 @@ export default {
 
 <style lang="scss" scoped>
 .spiner {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translateY(-50%) translateX(-50%);
-  -webkit-transform: translateY(-50%) translateX(-50%);
-  margin: auto;
+  width: 100%;
+  margin: 20px 0;
 }
 </style>

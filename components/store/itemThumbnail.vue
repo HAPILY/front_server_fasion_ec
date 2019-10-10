@@ -62,15 +62,15 @@ export default {
 
 <style lang="scss" scoped>
 .itemThumbnail {
-  width: 45%;
-  margin-right: 7%;
+  width: 35%;
+  margin: 0 5%;
 
   img {
     width: 100%;
   }
 
   &-info {
-    height: 400px;
+    min-height: 500px;
     margin-bottom: 20px;
   }
   &-list {

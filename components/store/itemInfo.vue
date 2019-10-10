@@ -46,7 +46,7 @@ export default {
   width: 48%;
 
   &-title {
-    font-size: 24px;
+    font-size: 32px;
     font-weight: bold;
     margin: 20px 0 30px;
   }

@@ -134,7 +134,7 @@ export default {
   min-height: 280px;
 
   &-title {
-    font-size: 24px;
+    font-size: 32px;
     font-weight: bold;
     margin-bottom: 28px;
     text-align: center;
