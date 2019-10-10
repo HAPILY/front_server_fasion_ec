@@ -44,6 +44,7 @@ export default {
   plugins: [
     "@/plugins/antd-ui",
     "@/plugins/moment",
+    { src: "~/plugins/sanitize", ssr: false },
     { src: "~/plugins/vue-carousel", ssr: false }
   ],
   /*
@@ -102,7 +103,7 @@ export default {
       new MomentLocalesPlugin({
         localesToKeep: ['es-us', 'ja']
       })
-    ],
-    extend(config, ctx) {}
+    ]
+    // extend(config, ctx) {}
   }
 };

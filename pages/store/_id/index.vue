@@ -29,7 +29,6 @@ import { mapActions, mapGetters } from "vuex";
 const Breadcrumbs = () => import("~/components/global/Breadcrumbs");
 const ItemThumbnail = () => import("~/components/store/ItemThumbnail");
 const ItemInfo = () => import("~/components/store/ItemInfo");
-
 const Spiner = () => import("~/components/spiner/Spiner");
 
 export default {

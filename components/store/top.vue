@@ -119,8 +119,13 @@ export default {
         width: 19%;
         margin-bottom: 10px;
         @include media(sm) {
-          width: 49%;
+          width: 46%;
+          margin-right: 4%;
           border: 1px solid color(gray, light);
+          &:nth-of-type(2n) {
+            margin-right: 0px;
+            margin-left: 4%;
+          }
         }
       }
     }
@@ -132,5 +137,11 @@ export default {
   text-align: center;
   font-size: 12px;
   margin-bottom: 28px;
+}
+
+@include media(sm) {
+  /deep/ .ant-card-body {
+    padding: 5px;
+  }
 }
 </style>

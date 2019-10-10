@@ -23,7 +23,12 @@
         <br>そのひとつひとつが今も職人の手で、まごころを込めてつくられています。
       </div>
     </div>
-    <Breadcrumbs :currentPage="{ name: 'About' }" />
+    <Breadcrumbs
+      :parentPages="[
+        { path: '/', name: 'トップ' }
+      ]"
+      :currentPage="{ name: 'About' }"
+    />
   </div>
 </template>
 
@@ -57,7 +62,7 @@ export default {
     margin-bottom: 30px;
     text-align: center;
 
-    > img {
+    img {
       @include media(sm) {
         width: 100%;
       }

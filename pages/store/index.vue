@@ -51,7 +51,12 @@
       </div>
     </div>
     <StoreTop v-if="current[0] === 'category1'" />
-    <Breadcrumbs :currentPage="{ name: 'ストア' }" />
+    <Breadcrumbs
+      :parentPages="[
+        { path: '/', name: 'トップ' }
+      ]"
+      :currentPage="{ name: 'ストア' }"
+    />
   </div>
 </template>
 
@@ -101,7 +106,7 @@ export default {
     margin-bottom: 30px;
     text-align: center;
 
-    > img {
+    img {
       @include media(sm) {
         width: 100%;
       }
