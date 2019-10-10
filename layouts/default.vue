@@ -21,7 +21,8 @@ export default {
   },
   computed: {
     path() {
-      return this.$route.path;
+      const key = this.$route.path.split("/")[1]
+      return `/${key}`;
     }
   }
 };
