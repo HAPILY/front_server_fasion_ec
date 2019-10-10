@@ -11,6 +11,21 @@
         :item="item"
       />
     </div>
+    <div
+      v-if="item"
+      class="storeItem-sp"
+    >
+      <Carousel
+        class="storeItem-carousel"
+        :per-page="1"
+        :autoplay="true"
+        :loop="true"
+        :autoplay-timeout="10000"
+      />
+      <ItemInfo
+        :item="item"
+      />
+    </div>
     <Breadcrumbs
       v-if="item"
       :parentPages="[
@@ -29,6 +44,7 @@ import { mapActions, mapGetters } from "vuex";
 const Breadcrumbs = () => import("~/components/global/Breadcrumbs");
 const ItemThumbnail = () => import("~/components/store/ItemThumbnail");
 const ItemInfo = () => import("~/components/store/ItemInfo");
+const Carousel = () => import("@/components/carousel/Carousel");
 const Spiner = () => import("~/components/spiner/Spiner");
 
 export default {
@@ -36,6 +52,7 @@ export default {
     Breadcrumbs,
     ItemThumbnail,
     ItemInfo,
+    Carousel,
     Spiner
   },
   computed: {
@@ -71,5 +88,15 @@ export default {
 }
 .storeItem {
   display: flex;
+  @include media(sm) {
+    display: none;
+  }
+
+  &-sp {
+    display: none;
+    @include media(sm) {
+      display: block;
+    }
+  }
 }
 </style>

@@ -90,6 +90,9 @@ export default {
     width: 30%;
     margin: 0 auto;
     margin-bottom: 30px;
+    @include media(sm) {
+      width: 100%;
+    }
     img {
       width: 100%;
     }
@@ -99,6 +102,9 @@ export default {
     margin: 0 auto;
     line-height: 1.4;
     margin-bottom: 20px;
+    @include media(sm) {
+      width: 100%;
+    }
   }
 }
 </style>

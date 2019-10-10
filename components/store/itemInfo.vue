@@ -44,11 +44,18 @@ export default {
 <style lang="scss" scoped>
 .itemInfo {
   width: 48%;
+  @include media(sm) {
+    width: 100%;
+  }
 
   &-title {
     font-size: 32px;
     font-weight: bold;
     margin: 20px 0 30px;
+    @include media(sm) {
+      font-size: 18px;
+      margin: 20px 0;
+    }
   }
   &-price {
     font-size: 18px;
