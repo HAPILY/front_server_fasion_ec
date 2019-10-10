@@ -4,13 +4,13 @@
       <!-- main -->
       <picture slot="cover">
         <source
-          :srcset="images[0].wepb"
+          :srcset="thumbnailWebp"
           class="img"
           type="image/webp"
         >
         <img
           alt="example"
-          :src="images[0].src"
+          :src="thumbnailSrc"
         >
       </picture>
     </div>
@@ -20,7 +20,7 @@
         v-for="(image, i) in images"
         :key="i"
       >
-        <picture slot="cover">
+        <picture @mouseover="changeThumbnail(image)">
           <source
             :srcset="image.wepb"
             class="img"
@@ -44,6 +44,18 @@ export default {
       type: Array,
       required: true
     }
+  },
+  data() {
+    return {
+      thumbnailSrc: this.images[0].src,
+      thumbnailWebp: this.images[0].webp
+    }
+  },
+  methods: {
+    changeThumbnail(image) {
+      this.thumbnailSrc = image.src
+      this.thumbnailWebp = image.webp
+    }
   }
 }
 </script>
@@ -58,6 +70,7 @@ export default {
   }
 
   &-info {
+    height: 400px;
     margin-bottom: 20px;
   }
   &-list {
