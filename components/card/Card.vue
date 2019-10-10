@@ -3,13 +3,13 @@
     <a-card hoverable>
       <picture slot="cover">
         <source
-          srcset="~/assets/images/A.webp"
+          :srcset="webp"
           class="img"
           type="image/webp"
         >
         <img
           class="card-image"
-          src="~/assets/images/A.png"
+          :src="src"
           alt="img"
         >
       </picture>
@@ -30,6 +30,10 @@ export default {
       default: ""
     },
     src: {
+      type: String,
+      default: ""
+    },
+    webp: {
       type: String,
       default: ""
     },

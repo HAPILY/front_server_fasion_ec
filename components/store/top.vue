@@ -10,7 +10,8 @@
           v-for="item in pickup.result"
           :key="item.id"
           class="store-top-pickup-item"
-          :src="item.images[0]"
+          :src="item.images[0].src"
+          :webp="item.images[0].webp"
           :title="item.name"
           :description="`￥${priceComma(item.price)}`"
           :path="`/store/${item.id}`"
@@ -28,7 +29,8 @@
           v-for="item in rank.result"
           :key="item.id"
           class="store-top-new-item"
-          :src="item.images[0]"
+          :src="item.images[0].src"
+          :webp="item.images[0].webp"
           :title="item.name"
           :description="`￥${priceComma(item.price)}`"
           :path="`/store/${item.id}`"
@@ -42,7 +44,7 @@
 import { mapActions, mapGetters } from "vuex";
 import { isExpired } from '@/utils/store'
 
-import Card from "@/components/card/Card";
+const Card = () => import("@/components/card/Card");
 
 export default {
   name: 'StoreTop',
