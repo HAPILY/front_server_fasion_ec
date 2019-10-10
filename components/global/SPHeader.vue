@@ -39,7 +39,10 @@
         />
         <div class="header-sp-logo">
           <nuxt-link to="/">
-            <img src="https://placehold.jp/120x40.png" alt="img.alt">
+            <img
+              src="https://placehold.jp/120x40.png"
+              alt="img.alt"
+            >
           </nuxt-link>
         </div>
       </a-layout-header>

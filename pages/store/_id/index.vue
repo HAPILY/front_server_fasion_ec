@@ -1,6 +1,9 @@
 <template>
   <div class="item">
-    <div v-if="item" class="storeItem">
+    <div
+      v-if="item"
+      class="storeItem"
+    >
       <ItemThumbnail
         :images="item.images"
       />

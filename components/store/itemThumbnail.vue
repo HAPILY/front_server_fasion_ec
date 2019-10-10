@@ -16,7 +16,10 @@
     </div>
     <div class="itemThumbnail-list">
       <!-- list -->
-      <div v-for="(image, i) in images" :key="i">
+      <div
+        v-for="(image, i) in images"
+        :key="i"
+      >
         <picture slot="cover">
           <source
             :srcset="image.wepb"

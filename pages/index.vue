@@ -1,8 +1,5 @@
 <template>
   <div class="top">
-    <div class="font_preload" style="opacity: 0">
-      <span style="font-family: 'Garton';"></span>
-    </div>
     <Carousel
       class="top-carousel"
       :per-page="1"

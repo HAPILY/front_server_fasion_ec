@@ -14,8 +14,10 @@
     </div>
     <div class="itemInfo-description">
       <h2>アイテム説明</h2>
-      <div class="itemInfo-content" v-html="item.content">
-      </div>
+      <div
+        class="itemInfo-content"
+        v-html="$sanitize(item.content)"
+      />
     </div>
   </div>
 </template>

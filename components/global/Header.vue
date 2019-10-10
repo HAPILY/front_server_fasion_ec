@@ -3,7 +3,10 @@
     <a-layout-header class="header-nav">
       <div class="header-logo">
         <nuxt-link to="/">
-          <img src="https://placehold.jp/120x40.png" alt="img.alt">
+          <img
+            src="https://placehold.jp/120x40.png"
+            alt="img.alt"
+          >
         </nuxt-link>
       </div>
       <a-menu
