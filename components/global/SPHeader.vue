@@ -83,7 +83,7 @@ export default {
   },
   computed: {
     isStore() {
-      return this.$route.name === 'store'
+      return this.$route.path.split("/")[1] === 'store'
     }
   },
   methods: {

@@ -8,7 +8,10 @@
     </h2>
     <div class="itemInfo-stock">
       <p>在庫あり</p>
-      <a-button type="primary">
+      <a-button
+        class="itemInfo-btn"
+        type="primary"
+      >
         カートに入れる
       </a-button>
     </div>
@@ -65,8 +68,21 @@ export default {
     display: flex;
     align-items: center;
     margin-bottom: 30px;
+    @include media(sm) {
+      display: block;
+    }
     > p {
       margin-right: 30px;
+      @include media(sm) {
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
+    }
+  }
+  &-btn {
+    @include media(sm) {
+      display: block;
+      width: 100%;
     }
   }
   &-description {
