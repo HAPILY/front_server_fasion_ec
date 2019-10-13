@@ -16,11 +16,10 @@
           v-decorator="[
             'email',
             {
-              rules: [{
-                type: 'email', message: 'メールアドレスの形式が間違っています',
-              }, {
-                required: true, message: '必須項目です',
-              }]
+              rules: [
+                { type: 'email', message: 'メールアドレスの形式が間違っています' },
+                { required: true, message: '必須項目です' }
+              ]
             }
           ]"
         />
@@ -33,13 +32,12 @@
           v-decorator="[
             'password',
             {
-              rules: [{
-                required: true, message: '必須項目です',
-              }]
+              rules: [
+                { required: true, message: '必須項目です' }
+              ]
             }
           ]"
           type="password"
-          :len="4"
         />
       </a-form-item>
       <a-form-item
