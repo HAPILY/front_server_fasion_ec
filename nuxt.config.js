@@ -44,6 +44,7 @@ export default {
   plugins: [
     "@/plugins/antd-ui",
     "@/plugins/moment",
+    "@/plugins/axios",
     { src: "~/plugins/sanitize", ssr: false },
     { src: "~/plugins/vue-carousel", ssr: false }
   ],
