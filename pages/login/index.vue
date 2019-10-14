@@ -40,9 +40,7 @@
           type="password"
         />
       </a-form-item>
-      <a-form-item
-        class="login-submit"
-      >
+      <a-form-item class="login-submit">
         <div class="login-create">
           <nuxt-link to="/login/create">
             アカウント作成
