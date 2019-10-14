@@ -73,6 +73,9 @@ export default {
   proxy: {
     "/api": "http://localhost:8100/"
   },
+  router: {
+    middleware: ['auth']
+  },
   /*
    ** Build configuration
    */
