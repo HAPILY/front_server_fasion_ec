@@ -65,6 +65,11 @@ const Breadcrumbs = () => import("~/components/global/Breadcrumbs");
 const StoreTop = () => import("~/components/store/top");
 
 export default {
+  middleware({ store }) {
+    if (!store.state.user.user.result) {
+      store.dispatch("user/fetchUserProfile")
+    }
+  },
   components: {
     Breadcrumbs,
     StoreTop

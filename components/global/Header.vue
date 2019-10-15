@@ -34,16 +34,29 @@
           @search="onSearch"
         />
         <div class="header-cart">
-          <a-icon
-            class="header-icon"
-            type="shopping-cart"
-          />
+          <nuxt-link to="/store/cart">
+            <a-icon
+              class="header-icon"
+              type="shopping-cart"
+            />
+          </nuxt-link>
         </div>
         <div class="header-login">
-          <a-icon
-            class="header-icon"
-            type="login"
-          />
+          <div
+            v-if="userProfile"
+            class="header-userName"
+          >
+            {{ userProfile.name }}
+          </div>
+          <nuxt-link
+            v-else
+            to="/login"
+          >
+            <a-icon
+              class="header-icon"
+              type="login"
+            />
+          </nuxt-link>
         </div>
       </div>
     </a-layout-header>
@@ -52,6 +65,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import CONST from "@/const";
 import SPHeader from "./SPHeader"
 
@@ -73,8 +87,14 @@ export default {
     };
   },
   computed: {
+    ...mapGetters("user", {
+      getProfile: "user"
+    }),
     isStore() {
       return this.$route.path.split("/")[1] === 'store'
+    },
+    userProfile() {
+      return this.getProfile.result
     }
   },
   methods: {
@@ -127,11 +147,15 @@ export default {
   &-icons {
     display: flex;
     align-items: center;
-    width: 30%;
+    width: 33%;
     height: 100%;
     position: absolute;
     right: 30px;
     top: 0;
+  }
+  &-cart,
+  &-login {
+    cursor: pointer;
   }
   &-cart {
     margin-right: 20px;
@@ -145,6 +169,10 @@ export default {
   }
   &-search {
     margin-right: 30px;
+  }
+  &-userName {
+    font-size: 14px;
+    color: color(white, base);
   }
 
   &-nonStore {
