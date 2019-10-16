@@ -1,4 +1,5 @@
 module.exports = [
+  "./api/admin/login",
   "./api/contact/post",
   "./api/item/pickup",
   "./api/item/rank",
@@ -6,5 +7,6 @@ module.exports = [
   "./api/item/normal",
   "./api/news/id",
   "./api/news/normal",
-  "./api/user/id"
+  "./api/user/id",
+  "./api/user/login"
 ];

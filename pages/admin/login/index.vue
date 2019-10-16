@@ -57,8 +57,28 @@ export default {
       e.preventDefault();
       this.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
-          console.log('Received values of form: ', values);
+          const params = {
+            id: values.id,
+            pass: values.password
+          }
+          this.$axios.$post("/api/admin/login", params).then(res => {
+            if (res.status === "SUCCESS") {
+              console.log("Admin Login")
+            } else {
+              this.openNotification()
+            }
+          }).catch(() => {
+            this.openNotification()
+          })
         }
+      });
+    },
+    openNotification() {
+      this.$notification.config({
+        placement: "bottomLeft",
+      });
+      this.$notification["error"]({
+        message: "ログインに失敗しました"
       });
     }
   }

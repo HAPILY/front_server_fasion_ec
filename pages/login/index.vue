@@ -67,8 +67,29 @@ export default {
       e.preventDefault();
       this.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
-          console.log('Received values of form: ', values);
+          const params = {
+            mail: values.email,
+            pass: values.password
+          }
+          this.$axios.$post("/api/login", params).then(res => {
+            if (res.status === "SUCCESS") {
+              localStorage.setItem("isLogin", 1)
+              location.href = "/store"
+            } else {
+              this.openNotification()
+            }
+          }).catch(() => {
+            this.openNotification()
+          })
         }
+      });
+    },
+    openNotification() {
+      this.$notification.config({
+        placement: "bottomLeft",
+      });
+      this.$notification["error"]({
+        message: "ログインに失敗しました"
       });
     }
   }
