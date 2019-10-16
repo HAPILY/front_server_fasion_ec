@@ -2,33 +2,14 @@
   <div class="store-top">
     <section class="store-top-section">
       <h2 class="store-top-subtitle">
-        Pickup Item
+        Category2
       </h2>
-      <span class="_detail">ピックアップアイテム</span>
+      <span class="_detail">カテゴリー2</span>
       <div class="store-top-pickup-list">
         <Card
-          v-for="item in pickup.result"
+          v-for="item in categoryList.result"
           :key="item.id"
           class="store-top-pickup-item"
-          :src="item.images[0].src"
-          :webp="item.images[0].webp"
-          :title="item.name"
-          :description="`￥${priceComma(item.price)}`"
-          :path="`/store/${item.id}`"
-        />
-      </div>
-    </section>
-
-    <section class="store-top-section">
-      <h2 class="store-top-subtitle">
-        Item Rank
-      </h2>
-      <span class="_detail">人気アイテム</span>
-      <div class="store-top-new-list">
-        <Card
-          v-for="item in rank.result"
-          :key="item.id"
-          class="store-top-new-item"
           :src="item.images[0].src"
           :webp="item.images[0].webp"
           :title="item.name"
@@ -47,37 +28,31 @@ import { isExpired } from '@/utils/store'
 const Card = () => import("@/components/card/Card");
 
 export default {
-  name: 'StoreTop',
+  name: 'Category2',
   components: {
     Card
+  },
+  props: {
+    type: {
+      type: String,
+      required: true
+    }
   },
   computed: {
     ...mapGetters('item', {
       typeList: 'typeList'
     }),
-    pickup() {
-      if (!this.typeList["pickup"]) return {}
-      return this.typeList["pickup"]
-    },
-    rank() {
-      if (!this.typeList["rank"]) return {}
-      return this.typeList["rank"]
+    categoryList() {
+      if (!this.typeList[this.type]) return {}
+      return this.typeList[this.type]
     },
     priceComma() {
       return function(price) {
         return String(price).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
       }
-    },
-    params() {
-      return function(type, limit) {
-        return {
-          type: type,
-          limit: limit
-        }
-      }
     }
   },
-  created() {
+  mounted() {
     this.fetch()
   },
   methods: {
@@ -86,12 +61,8 @@ export default {
     }),
     async fetch() {
       let fetchList = []
-      if (isExpired(this.pickup)) {
-        fetchList.push(this.fetchTypeList(this.params("pickup", 10)))
-      }
-
-      if (isExpired(this.rank)) {
-        fetchList.push(this.fetchTypeList(this.params("rank", 5)))
+      if (isExpired(this.categoryList)) {
+        fetchList.push(this.fetchTypeList({ type: this.type }))
       }
       await Promise.all(fetchList)
     }

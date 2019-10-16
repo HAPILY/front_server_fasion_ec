@@ -60,7 +60,8 @@ export default {
       getItem: "item"
     }),
     item() {
-      return this.getItem.result
+      if (!this.getItem[this.$route.params.id]) return null
+      return this.getItem[this.$route.params.id].result
     }
   },
   created() {

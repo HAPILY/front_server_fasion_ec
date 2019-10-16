@@ -27,7 +27,7 @@
             key="category1"
             class="store-tab-item"
           >
-            <a-icon type="mail" />category1
+            <a-icon type="home" />Top
           </a-menu-item>
           <a-menu-item
             key="category2"
@@ -39,18 +39,30 @@
             key="category3"
             class="store-tab-item"
           >
-            <a-icon type="mail" />category3
+            <a-icon type="crown" />category3
           </a-menu-item>
           <a-menu-item
             key="category4"
             class="store-tab-item"
           >
-            <a-icon type="mail" />category4
+            <a-icon type="shopping" />category4
           </a-menu-item>
         </a-menu>
       </div>
     </div>
     <StoreTop v-if="current[0] === 'category1'" />
+    <StoreCategory
+      v-if="current[0] === 'category2'"
+      type="category2"
+    />
+    <StoreCategory
+      v-if="current[0] === 'category3'"
+      type="category3"
+    />
+    <StoreCategory
+      v-if="current[0] === 'category4'"
+      type="category4"
+    />
     <Breadcrumbs
       :parentPages="[
         { path: '/', name: 'トップ' }
@@ -61,19 +73,18 @@
 </template>
 
 <script>
+import UserProfile from "~/mixins/userProfile";
 const Breadcrumbs = () => import("~/components/global/Breadcrumbs");
-const StoreTop = () => import("~/components/store/top");
+const StoreTop = () => import("~/components/store/Top");
+const StoreCategory = () => import("~/components/store/Category2");
 
 export default {
-  middleware({ store }) {
-    if (!store.state.user.user.result) {
-      store.dispatch("user/fetchUserProfile")
-    }
-  },
   components: {
     Breadcrumbs,
-    StoreTop
+    StoreTop,
+    StoreCategory
   },
+  mixins: [UserProfile],
   data() {
     return {
       current: ['category1']

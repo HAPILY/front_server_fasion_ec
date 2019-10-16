@@ -1,7 +1,6 @@
 export const state = () => ({
   list: {},
-  pickupList: {},
-  rankList: {},
+  typeList: {},
   item: {}
 });
 
@@ -9,21 +8,17 @@ export const mutations = {
   setItemList(state, payload) {
     state.list = { ...payload };
   },
-  setPickupList(state, payload) {
-    state.pickupList = { ...payload };
-  },
-  setRankList(state, payload) {
-    state.rankList = { ...payload };
+  setTypeList(state, payload) {
+    state.typeList = Object.assign({}, { ...state.typeList }, { ...payload });
   },
   setItem(state, payload) {
-    state.item = { ...payload };
+    state.item = Object.assign({}, { ...state.item }, { ...payload });
   }
 };
 
 export const getters = {
   list: state => state.list,
-  pickupList: state => state.pickupList,
-  rankList: state => state.rankList,
+  typeList: state => state.typeList,
   item: state => state.item
 };
 
@@ -40,25 +35,15 @@ export const actions = {
       console.log("error", e);
     }
   },
-  async fetchPickupList(context) {
+  async fetchTypeList(context, params) {
     try {
-      const res = await this.$axios.$get("/api/item", { params: { type: "pickup", limit: 10 } });
-      context.commit("setPickupList", {
-        result: res.data,
-        fetchTime: new Date(),
-        expiryDate: this.$moment().add(1, 'hour').toDate()
-      });
-    } catch (e) {
-      console.log("error", e);
-    }
-  },
-  async fetchRankList(context) {
-    try {
-      const res = await this.$axios.$get("/api/item", { params: { type: "rank", limit: 5 } });
-      context.commit("setRankList", {
-        result: res.data,
-        fetchTime: new Date(),
-        expiryDate: this.$moment().add(1, 'hour').toDate()
+      const res = await this.$axios.$get("/api/item", { params: params });
+      context.commit("setTypeList", {
+        [params.type]: {
+          result: res.data,
+          fetchTime: new Date(),
+          expiryDate: this.$moment().add(1, 'day').toDate()
+        }
       });
     } catch (e) {
       console.log("error", e);
@@ -68,9 +53,11 @@ export const actions = {
     try {
       const res = await this.$axios.$get(`/api/item/${params.id}`);
       context.commit("setItem", {
-        result: res.data,
-        fetchTime: new Date(),
-        expiryDate: this.$moment().add(1, 'seconds').toDate()
+        [params.id]: {
+          result: res.data,
+          fetchTime: new Date(),
+          expiryDate: this.$moment().add(1, 'seconds').toDate()
+        }
       });
     } catch (e) {
       console.log("error", e);

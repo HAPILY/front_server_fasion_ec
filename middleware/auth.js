@@ -7,4 +7,8 @@ export default async ({store}) => {
     const storageToken = localStorage.token
     await store.dispatch('fetchToken', { token: storageToken })
   }
+
+  if (localStorage.isLogin === undefined) {
+    await localStorage.setItem('isLogin', 0)
+  }
 }

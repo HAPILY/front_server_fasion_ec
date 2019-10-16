@@ -5,14 +5,13 @@ module.exports = {
     path: "/api/item",
     method: "GET",
     query: {
-      type: "rank",
-      limit: 5
+      type: "category"
     }
   },
   response: {
     body: {
       status: "SUCCESS",
-      data: times(5, i => ({
+      data: times(30, i => ({
         id: i,
         name: "Hot Dora Butter2入ギフトBOX(オリジナル２個)",
         price: 10800 - (1000 * i),
