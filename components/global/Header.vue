@@ -44,12 +44,16 @@
           </nuxt-link>
         </div>
         <div class="header-login">
-          <div
-            v-if="userProfile"
-            class="header-userName"
-          >
-            {{ userProfile.name }}
-          </div>
+          <a-dropdown v-if="userProfile">
+            <div class="header-userName">
+              {{ userProfile.name }}
+            </div>
+            <a-menu slot="overlay">
+              <a-menu-item class="header-dropdown-menu">
+                <a href="/logout">ログアウト</a>
+              </a-menu-item>
+            </a-menu>
+          </a-dropdown>
           <nuxt-link
             v-else
             to="/login"
@@ -177,6 +181,11 @@ export default {
   &-userName {
     font-size: 14px;
     color: color(white, base);
+  }
+  &-dropdown {
+    &-menu {
+      padding: 14px;
+    }
   }
 
   &-nonStore {
