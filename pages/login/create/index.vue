@@ -25,6 +25,21 @@
         />
       </a-form-item>
       <a-form-item
+        class="createAccount-name"
+        label="名前"
+      >
+        <a-input
+          v-decorator="[
+            'name',
+            {
+              rules: [
+                { required: true, message: '必須項目です' }
+              ]
+            }
+          ]"
+        />
+      </a-form-item>
+      <a-form-item
         class="createAccount-pass"
         label="パスワード"
       >
@@ -64,8 +79,29 @@ export default {
       e.preventDefault();
       this.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
-          console.log('Received values of form: ', values);
+          const params = {
+            mail: values.email,
+            name: values.name,
+            pass: values.password
+          }
+          this.$axios.$post("/api/user/create", params).then(res => {
+            if (res.status === "SUCCESS") {
+              location.href = "/login"
+            } else {
+              this.openNotification()
+            }
+          }).catch(() => {
+            this.openNotification()
+          })
         }
+      });
+    },
+    openNotification() {
+      this.$notification.config({
+        placement: "bottomLeft",
+      });
+      this.$notification["error"]({
+        message: "アカウント作成に失敗しました"
       });
     }
   }
@@ -95,6 +131,7 @@ export default {
   }
 
   &-mail,
+  &-name,
   &-pass {
     margin-bottom: 10px;
   }

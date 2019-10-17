@@ -1,13 +1,13 @@
 module.exports = {
   request: {
-    path: "/api/user/login",
+    path: "/api/user/create",
     method: "POST"
   },
   response: {
     body: {
       status: "SUCCESS",
       data: {
-        token: "oerigjpoegjrfj"
+        message: "作成が完了しました"
       }
     }
   }

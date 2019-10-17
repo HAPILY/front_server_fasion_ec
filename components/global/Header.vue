@@ -30,7 +30,6 @@
         <a-input-search
           class="header-search"
           placeholder="Search Items"
-          style="width: 200px"
           @search="onSearch"
         />
         <div class="header-cart">
@@ -168,6 +167,7 @@ export default {
     }
   }
   &-search {
+    width: 200px;
     margin-right: 30px;
   }
   &-userName {

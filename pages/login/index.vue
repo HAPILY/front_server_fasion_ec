@@ -71,8 +71,12 @@ export default {
             mail: values.email,
             pass: values.password
           }
-          this.$axios.$post("/api/login", params).then(res => {
+          this.$axios.$post("/api/user/login", params).then(res => {
             if (res.status === "SUCCESS") {
+              const token = localStorage.getItem("token")
+              if (token !== res.data.token) {
+                localStorage.setItem("token", res.data.token)
+              }
               localStorage.setItem("isLogin", 1)
               location.href = "/store"
             } else {

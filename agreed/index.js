@@ -8,5 +8,6 @@ module.exports = [
   "./api/news/id",
   "./api/news/normal",
   "./api/user/id",
-  "./api/user/login"
+  "./api/user/login",
+  "./api/user/create"
 ];
