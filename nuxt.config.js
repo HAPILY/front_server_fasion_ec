@@ -1,5 +1,6 @@
 const nodeEnv = `${process.env.NODE_ENV || "development"}`;
 const env = require(`./env.${nodeEnv}.js`);
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
 
 export default {
   mode: "spa",
@@ -82,6 +83,7 @@ export default {
     /*
      ** You can extend webpack config here
      */
+    vendor: ["lodash"],
     loaders: {
       scss: {
         data: `@import '~assets/scss/index.scss';`
@@ -99,7 +101,12 @@ export default {
         minifyCSS: true,
         minifyJS: true
       }
-    }
+    },
+    plugins: [
+      new MomentLocalesPlugin({
+        localesToKeep: ['es-us', 'ja']
+      })
+    ]
     // extend(config, ctx) {}
   }
 };

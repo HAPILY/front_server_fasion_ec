@@ -1,4 +1,4 @@
-const times = require('lodash/times')
+const times = require('lodash.times')
 
 module.exports = {
   request: {
