@@ -1,5 +1,6 @@
 export const state = () => ({
   list: {},
+  idList: {},
   typeList: {},
   item: {}
 });
@@ -7,6 +8,9 @@ export const state = () => ({
 export const mutations = {
   setItemList(state, payload) {
     state.list = { ...payload };
+  },
+  setIdList(state, payload) {
+    state.idList = { ...payload };
   },
   setTypeList(state, payload) {
     state.typeList = Object.assign({}, { ...state.typeList }, { ...payload });
@@ -18,6 +22,7 @@ export const mutations = {
 
 export const getters = {
   list: state => state.list,
+  idList: state => state.idList,
   typeList: state => state.typeList,
   item: state => state.item
 };
@@ -31,6 +36,18 @@ export const actions = {
         fetchTime: new Date(),
         expiryDate: this.$dayjs().add(1, 'hour').toDate()
       });
+    } catch (e) {
+      console.log("error", e);
+    }
+  },
+  async fetchIdList(context, params) {
+    try {
+      const res = await this.$axios.$get("/api/items", { params: params });
+      context.commit("setIdList", {
+        result: res.data,
+        fetchTime: new Date(),
+        expiryDate: this.$dayjs().add(1, 'seconds').toDate()
+      })
     } catch (e) {
       console.log("error", e);
     }

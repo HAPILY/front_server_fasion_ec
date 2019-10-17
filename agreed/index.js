@@ -4,6 +4,7 @@ module.exports = [
   "./api/item/pickup",
   "./api/item/rank",
   "./api/item/id",
+  "./api/item/ids",
   "./api/item/normal",
   "./api/news/id",
   "./api/news/normal",
