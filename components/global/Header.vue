@@ -1,6 +1,9 @@
 <template>
   <div class="header">
-    <a-layout-header class="header-nav">
+    <a-layout-header
+      v-if="media(['xl', 'lg', 'md'])"
+      class="header-nav"
+    >
       <div class="header-logo">
         <nuxt-link to="/">
           <img
@@ -59,13 +62,18 @@
         </div>
       </div>
     </a-layout-header>
-    <SPHeader :path="path" />
+    <SPHeader
+      v-if="media(['sm'])"
+      :path="path"
+    />
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 import CONST from "@/const";
+import Layout from '@/mixins/layout'
+
 import SPHeader from "./SPHeader"
 
 export default {
@@ -73,6 +81,7 @@ export default {
   components: {
     SPHeader
   },
+  mixins: [Layout],
   props: {
     path: {
       type: String,
@@ -115,11 +124,6 @@ export default {
   position: fixed;
   width: 100%;
   z-index: 2;
-  &-nav {
-    @include media(sm) {
-      display: none;
-    }
-  }
   &-sider {
     @include media(md, lg, xl) {
       display: none;

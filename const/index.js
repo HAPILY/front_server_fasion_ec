@@ -1,5 +1,7 @@
 import Header from './Header'
+import Media from './Media'
 
 export default {
-  Header
+  Header,
+  Media
 }

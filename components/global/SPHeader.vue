@@ -100,9 +100,6 @@ export default {
 <style lang="scss" scoped>
 .header {
   &-sp {
-    @include media(md, lg, xl) {
-      display: none;
-    }
     &-head {
       display: flex;
       align-items: center;
