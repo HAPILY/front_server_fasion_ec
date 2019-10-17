@@ -1,5 +1,4 @@
-import 'moment/locale/ja'
-import moment from 'moment'
+import dayjs from 'dayjs'
 
 export const isExpired = (result) => {
   if (!result.fetchTime) {
@@ -8,7 +7,7 @@ export const isExpired = (result) => {
   if (!result.expiryDate) {
     return false
   }
-  return moment().isAfter(result.expiryDate)
+  return dayjs().isAfter(result.expiryDate)
 }
 
 export default {

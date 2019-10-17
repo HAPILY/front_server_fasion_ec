@@ -74,7 +74,7 @@ import { mapGetters } from "vuex";
 import CONST from "@/const";
 import Layout from '@/mixins/layout'
 
-import SPHeader from "./SPHeader"
+const SPHeader = () => import("./SPHeader");
 
 export default {
   name: "Header",

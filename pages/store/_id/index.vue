@@ -1,7 +1,7 @@
 <template>
   <div class="item">
     <div
-      v-if="item"
+      v-if="item && media(['xl', 'lg', 'md'])"
       class="storeItem"
     >
       <ItemThumbnail
@@ -12,8 +12,8 @@
       />
     </div>
     <div
-      v-if="item"
-      class="storeItem-sp"
+      v-if="item && media(['sm'])"
+      class="storeItem"
     >
       <Carousel
         class="storeItem-carousel"
@@ -40,6 +40,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import Layout from '@/mixins/layout'
 
 const Breadcrumbs = () => import("~/components/global/Breadcrumbs");
 const ItemThumbnail = () => import("~/components/store/ItemThumbnail");
@@ -55,6 +56,7 @@ export default {
     Carousel,
     Spiner
   },
+  mixins: [Layout],
   computed: {
     ...mapGetters("item", {
       getItem: "item"
@@ -89,15 +91,5 @@ export default {
 }
 .storeItem {
   display: flex;
-  @include media(sm) {
-    display: none;
-  }
-
-  &-sp {
-    display: none;
-    @include media(sm) {
-      display: block;
-    }
-  }
 }
 </style>

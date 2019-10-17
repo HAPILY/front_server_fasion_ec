@@ -29,7 +29,7 @@ export const actions = {
       context.commit("setItemList", {
         result: res.data,
         fetchTime: new Date(),
-        expiryDate: this.$moment().add(1, 'hour').toDate()
+        expiryDate: this.$dayjs().add(1, 'hour').toDate()
       });
     } catch (e) {
       console.log("error", e);
@@ -42,7 +42,7 @@ export const actions = {
         [params.type]: {
           result: res.data,
           fetchTime: new Date(),
-          expiryDate: this.$moment().add(1, 'day').toDate()
+          expiryDate: this.$dayjs().add(1, 'day').toDate()
         }
       });
     } catch (e) {
@@ -56,7 +56,7 @@ export const actions = {
         [params.id]: {
           result: res.data,
           fetchTime: new Date(),
-          expiryDate: this.$moment().add(1, 'seconds').toDate()
+          expiryDate: this.$dayjs().add(1, 'seconds').toDate()
         }
       });
     } catch (e) {

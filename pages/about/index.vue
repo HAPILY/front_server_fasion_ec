@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import Breadcrumbs from "@/components/global/Breadcrumbs.vue";
+const Breadcrumbs = () => import("~/components/global/Breadcrumbs");
 
 export default {
   components: {

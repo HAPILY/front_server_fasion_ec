@@ -1,6 +1,5 @@
 const nodeEnv = `${process.env.NODE_ENV || "development"}`;
 const env = require(`./env.${nodeEnv}.js`);
-const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
 
 export default {
   mode: "spa",
@@ -43,9 +42,8 @@ export default {
    */
   plugins: [
     "@/plugins/antd-ui",
-    "@/plugins/moment",
+    "@/plugins/dayjs",
     "@/plugins/axios",
-    { src: "~/plugins/sanitize", ssr: false },
     { src: "~/plugins/vue-carousel", ssr: false }
   ],
   /*
@@ -96,18 +94,12 @@ export default {
         chunks: 'initial'
       }
     },
-    vendor: ['moment'],
     html: {
       minify: {
         minifyCSS: true,
         minifyJS: true
       }
-    },
-    plugins: [
-      new MomentLocalesPlugin({
-        localesToKeep: ['es-us', 'ja']
-      })
-    ]
+    }
     // extend(config, ctx) {}
   }
 };

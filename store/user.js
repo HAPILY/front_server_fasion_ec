@@ -20,7 +20,7 @@ export const actions = {
         context.commit("setUserProfile", {
           result: res.data,
           fetchTime: new Date(),
-          expiryDate: this.$moment().add(1, 'day').toDate()
+          expiryDate: this.$dayjs().add(1, 'day').toDate()
         })
       }
     } catch (e) {

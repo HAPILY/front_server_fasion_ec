@@ -43,7 +43,6 @@ export default {
       this.update()
     },
     update() {
-      console.log("resize", this.getCurrentMediaType())
       this.mediaType = this.getCurrentMediaType()
     }
   }

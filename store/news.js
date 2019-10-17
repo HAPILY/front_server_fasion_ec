@@ -24,7 +24,7 @@ export const actions = {
       context.commit("setNewsList", {
         result: res.data,
         fetchTime: new Date(),
-        expiryDate: this.$moment().add(1, 'hour').toDate()
+        expiryDate: this.$dayjs().add(1, 'hour').toDate()
       });
     } catch (e) {
       console.log("error", e);
@@ -36,7 +36,7 @@ export const actions = {
       context.commit("setItem", {
         result: res.data,
         fetchTime: new Date(),
-        expiryDate: this.$moment().add(1, 'seconds').toDate()
+        expiryDate: this.$dayjs().add(1, 'seconds').toDate()
       });
     } catch (e) {
       console.log("error", e);

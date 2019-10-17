@@ -54,7 +54,8 @@
         />
       </a-form-item>
       <a-form-item
-        class="contact-submit-pc"
+        v-if="media(['xl', 'lg', 'md'])"
+        class="contact-submit"
         :wrapper-col="{ span: 15, offset: 5 }"
       >
         <a-button
@@ -65,7 +66,8 @@
         </a-button>
       </a-form-item>
       <a-form-item
-        class="contact-submit-sp"
+        v-if="media(['sm'])"
+        class="contact-submit"
         :wrapper-col="{ span: 15 }"
       >
         <a-button
@@ -84,12 +86,15 @@
 </template>
 
 <script>
-import Breadcrumbs from "@/components/global/Breadcrumbs.vue";
+import Layout from '@/mixins/layout'
+
+const Breadcrumbs = () => import("~/components/global/Breadcrumbs");
 
 export default {
   components: {
     Breadcrumbs
   },
+  mixins: [Layout],
   data () {
     return {
       form: this.$form.createForm(this)
@@ -148,18 +153,7 @@ export default {
   }
 
   &-submit {
-    &-pc {
-      text-align: right;
-      @include media(sm) {
-        display: none;
-      }
-    }
-    &-sp {
-      text-align: right;
-      @include media(xl, lg, md) {
-        display: none;
-      }
-    }
+    text-align: right;
   }
 }
 </style>
