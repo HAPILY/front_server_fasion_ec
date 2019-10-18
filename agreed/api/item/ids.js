@@ -5,7 +5,7 @@ module.exports = {
     path: "/api/items",
     method: "GET",
     query: {
-      ids: [0, 1, 2, 3]
+      "ids[0]": 1
     }
   },
   response: {

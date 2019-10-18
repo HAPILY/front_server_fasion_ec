@@ -41,8 +41,14 @@ export const actions = {
     }
   },
   async fetchIdList(context, params) {
+    const qs = require('qs');
     try {
-      const res = await this.$axios.$get("/api/items", { params: params });
+      const res = await this.$axios.$get("/api/items", {
+        params: params,
+        paramsSerializer: params => {
+          return qs.stringify(params)
+        }
+      });
       context.commit("setIdList", {
         result: res.data,
         fetchTime: new Date(),

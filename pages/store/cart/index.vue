@@ -8,7 +8,10 @@
         v-if="list.length !== 0"
         :list="list"
       />
-      <div class="cart-not">
+      <div
+        v-if="list.length === 0"
+        class="cart-not"
+      >
         カートに商品は入っていません。
       </div>
       <div
@@ -67,7 +70,8 @@ export default {
       fetchIdList: "fetchIdList"
     }),
     async fetch() {
-      const cart = localStorage.getItem("cart")
+      const cart = JSON.parse(localStorage.getItem("cart")).map(v => v.id);
+      console.log(cart);
       if (cart) {
         await this.fetchIdList({ ids: cart })
       }
@@ -101,7 +105,7 @@ export default {
 
   &-btns {
     width: 30%;
-    margin: auto 0;
+    margin: 0 0 auto 0;
     padding: 20px;
     border: 1px solid color(gray, base);
     border-radius: 8px;
