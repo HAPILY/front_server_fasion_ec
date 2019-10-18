@@ -11,6 +11,7 @@
       <a-button
         class="itemInfo-btn"
         type="primary"
+        @click="addCart"
       >
         カートに入れる
       </a-button>
@@ -39,6 +40,31 @@ export default {
       return function(price) {
         return String(price).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
       }
+    }
+  },
+  methods: {
+    addCart() {
+      const cart = JSON.parse(localStorage.getItem("cart"));
+      if (cart) {
+        const item = cart.find(v => {
+          return v.id === this.item.id
+        });
+        if (item) {
+          item.num++
+        } else {
+          cart.push({
+            id: item.id,
+            num: 1
+          })
+        }
+        localStorage.setItem("cart", JSON.stringify(cart));
+      } else {
+        localStorage.setItem("cart", JSON.stringify([{
+          id: this.item.id,
+          num: 1
+        }]));
+      }
+      location.href = "/store/cart";
     }
   }
 }
