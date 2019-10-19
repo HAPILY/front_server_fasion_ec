@@ -8,7 +8,9 @@ module.exports = {
       status: "SUCCESS",
       data: {
         id: 1,
-        name: "Shogo Takao"
+        first_name: "Takao",
+        last_name: "Shogo",
+        birthday: "1996-05-19"
       }
     }
   }

@@ -25,12 +25,27 @@
         />
       </a-form-item>
       <a-form-item
-        class="createAccount-name"
-        label="名前"
+        class="createAccount-firstname"
+        label="姓"
       >
         <a-input
           v-decorator="[
-            'name',
+            'firstname',
+            {
+              rules: [
+                { required: true, message: '必須項目です' }
+              ]
+            }
+          ]"
+        />
+      </a-form-item>
+      <a-form-item
+        class="createAccount-lastname"
+        label="名"
+      >
+        <a-input
+          v-decorator="[
+            'lastname',
             {
               rules: [
                 { required: true, message: '必須項目です' }
@@ -57,6 +72,21 @@
           type="password"
         />
       </a-form-item>
+      <a-form-item
+        class="createAccount-birthday"
+        label="生年月日"
+      >
+        <a-date-picker
+          v-decorator="[
+            'birthday',
+            {
+              rules: [
+                { required: true, message: '必須項目です' }
+              ]
+            }
+          ]"
+        />
+      </a-form-item>
       <a-form-item class="createAccount-submit">
         <a-button
           type="primary"
@@ -81,8 +111,10 @@ export default {
         if (!err) {
           const params = {
             mail: values.email,
-            name: values.name,
-            pass: values.password
+            firstname: values.firstname,
+            lastname: values.lastname,
+            pass: values.password,
+            birthday: values.birthday
           }
           this.$axios.$post("/api/user/create", params).then(res => {
             if (res.status === "SUCCESS") {
