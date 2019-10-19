@@ -6,7 +6,7 @@ module.exports = {
   response: {
     body: {
       status: "SUCCESS",
-      data: {
+      user: {
         id: 1,
         first_name: "Takao",
         last_name: "Shogo",
