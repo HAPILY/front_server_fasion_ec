@@ -18,7 +18,7 @@ export const actions = {
       const res = await this.$axios.$get("/api/user");
       if (res.data) {
         context.commit("setUserProfile", {
-          result: res.data,
+          result: changeScheme(res.data),
           fetchTime: new Date(),
           expiryDate: this.$dayjs().add(1, 'day').toDate()
         })
@@ -28,3 +28,12 @@ export const actions = {
     }
   }
 };
+
+const changeScheme = (data) => {
+  return {
+    id: data.id,
+    firstName: data.first_name,
+    lastName: data.last_name,
+    birthday: data.birthday
+  }
+}

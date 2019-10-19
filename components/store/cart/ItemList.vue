@@ -19,13 +19,41 @@
       </picture>
       <div class="cart-item-description">
         <div class="cart-item-title">
-          タイトル
+          {{ item.name }}
         </div>
         <div class="cart-item-price">
-          値段
+          ¥{{ priceComma(item.price) }} (税込)
         </div>
       </div>
-      <div class="cart-item-remove">
+      <div class="cart-num">
+        <div class="cart-num-group-button">
+          <span
+            class="cart-number-decrement"
+            @click="decrementItem(item)"
+          >
+            -
+          </span>
+        </div>
+        <input
+          class="cart-number"
+          type="number"
+          :value="itemNum(item)"
+          min="0"
+          max="10"
+        >
+        <div class="cart-num-group-button">
+          <span
+            class="cart-number-increment"
+            @click="incrementItem(item)"
+          >
+            +
+          </span>
+        </div>
+      </div>
+      <div
+        class="cart-item-remove"
+        @click="removeItem(item)"
+      >
         削除
       </div>
     </div>
@@ -40,6 +68,51 @@ export default {
       type: Array,
       default: () => []
     }
+  },
+  computed: {
+    priceComma() {
+      return function(price) {
+        return String(price).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
+      }
+    },
+    itemNum() {
+      return function(item) {
+        const cart = JSON.parse(localStorage.getItem("cart"));
+        return cart.find(v => v.id === item.id).num
+      }
+    }
+  },
+  methods: {
+    removeItem(item) {
+      this.$emit("remove", item);
+    },
+    decrementItem(item) {
+      const cart = JSON.parse(localStorage.getItem("cart"));
+      const cartNum = cart.find(v => v.id === item.id);
+      if (cartNum.num === 1) {
+        this.$emit("remove", item);
+      } else if (cartNum.num <= 0) {
+        return
+      } else {
+        cartNum.num--;
+        localStorage.setItem("cart", JSON.stringify(cart));
+      }
+      // TODO reactiveにする方法
+      this.$forceUpdate()
+      this.$emit("update");
+    },
+    incrementItem(item) {
+      const cart = JSON.parse(localStorage.getItem("cart"));
+      const cartNum = cart.find(v => v.id === item.id);
+      if (cartNum.num >= 10) {
+        return
+      } else {
+        cartNum.num++;
+        localStorage.setItem("cart", JSON.stringify(cart));
+      }
+      this.$forceUpdate()
+      this.$emit("update");
+    }
   }
 }
 </script>
@@ -52,6 +125,7 @@ export default {
     border-top: 1px solid color(gray, base);
     border-bottom: 1px solid color(gray, base);
     padding: 20px 0;
+    margin-right: 20px;
 
     &-description {
       padding: 20px;
@@ -76,6 +150,49 @@ export default {
     img {
       width: 100%;
     }
+  }
+
+  &-num {
+    display: flex;
+    justify-content: center;
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+      appearance: none;
+    }
+  }
+  &-number {
+    width: 40px;
+    padding: 0;
+    text-align: center;
+    outline: none;
+    display: block;
+    margin: 0;
+  }
+  &-number,
+  &-number-decrement,
+  &-number-increment {
+    border: 1px solid color(gray, base);
+    height: 40px;
+    user-select: none;
+    border-radius: 4px;
+  }
+  &-number-decrement,
+  &-number-increment {
+    display: inline-block;
+    width: 40px;
+    background: color(gray, light);
+    text-align: center;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 40px;
+  }
+  &-number-decrement {
+    margin-right: 0.3rem;
+  }
+  &-number-increment {
+    margin-left: 0.3rem;
   }
 }
 </style>

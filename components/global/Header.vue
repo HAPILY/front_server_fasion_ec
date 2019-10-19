@@ -46,7 +46,7 @@
         <div class="header-login">
           <a-dropdown v-if="userProfile">
             <div class="header-userName">
-              {{ userProfile.name }}
+              {{ userProfile.firstName }}様
             </div>
             <a-menu slot="overlay">
               <a-menu-item class="header-dropdown-menu">
@@ -179,7 +179,7 @@ export default {
     margin-right: 30px;
   }
   &-userName {
-    font-size: 14px;
+    font-size: 12px;
     color: color(white, base);
   }
   &-dropdown {

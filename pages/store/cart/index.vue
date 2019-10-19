@@ -7,6 +7,8 @@
       <ItemList
         v-if="list.length !== 0"
         :list="list"
+        @remove="removeItem"
+        @update="update"
       />
       <div
         v-if="list.length === 0"
@@ -18,6 +20,9 @@
         v-if="list.length !== 0"
         class="cart-btns"
       >
+        <div class="cart-total">
+          商品合計 ¥{{ total }}
+        </div>
         <!-- レジ or ログイン -->
         <a-button
           class="cart-regi"
@@ -53,6 +58,11 @@ export default {
     Breadcrumbs,
     ItemList
   },
+  data() {
+    return {
+      total: 0
+    }
+  },
   computed: {
     ...mapGetters("item", {
       getIdList: "idList"
@@ -70,11 +80,34 @@ export default {
       fetchIdList: "fetchIdList"
     }),
     async fetch() {
-      const cart = JSON.parse(localStorage.getItem("cart")).map(v => v.id);
-      console.log(cart);
-      if (cart) {
-        await this.fetchIdList({ ids: cart })
+      const cart = JSON.parse(localStorage.getItem("cart"));
+      const cartId = cart.map(v => v.id);
+      if (cartId) {
+        await this.fetchIdList({ ids: cartId });
       }
+      this.totalPrice()
+    },
+    async removeItem(item) {
+      const cart = JSON.parse(localStorage.getItem("cart"));
+      const newCart = cart.find(v => v.id !== item.id);
+      newCart
+        ? localStorage.setItem("cart", JSON.stringify(newCart))
+        : localStorage.removeItem("cart")
+      if (newCart) {
+        await this.fetchIdList({ ids: newCart });
+      }
+    },
+    totalPrice() {
+      let total = 0
+      const cart = JSON.parse(localStorage.getItem("cart"));
+      this.list.forEach(v => {
+        const num = cart.find(vv => vv.id === v.id).num
+        total += (v.price * num)
+      });
+      this.total = String(total).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
+    },
+    update() {
+      this.totalPrice()
     }
   }
 }
@@ -119,6 +152,10 @@ export default {
   }
   &-not {
     margin: 50px;
+  }
+  &-total {
+    width: 100%;
+    margin-bottom: 20px;
   }
 }
 </style>
