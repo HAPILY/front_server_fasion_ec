@@ -96,10 +96,10 @@ export default {
       } else {
         cartNum.num--;
         localStorage.setItem("cart", JSON.stringify(cart));
+        // TODO reactiveにする方法
+        this.$emit("update");
       }
-      // TODO reactiveにする方法
       this.$forceUpdate()
-      this.$emit("update");
     },
     incrementItem(item) {
       const cart = JSON.parse(localStorage.getItem("cart"));

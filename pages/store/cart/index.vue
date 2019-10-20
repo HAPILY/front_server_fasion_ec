@@ -30,11 +30,13 @@
         >
           レジへ進む
         </a-button>
-        <a-button
-          class="cart-shopping"
-        >
-          ショッピングを続ける
-        </a-button>
+        <nuxt-link to="/store">
+          <a-button
+            class="cart-shopping"
+          >
+            ショッピングを続ける
+          </a-button>
+        </nuxt-link>
       </div>
     </div>
     <Breadcrumbs
@@ -77,15 +79,16 @@ export default {
   },
   methods: {
     ...mapActions("item", {
-      fetchIdList: "fetchIdList"
+      fetchIdList: "fetchIdList",
+      updateIdList: "updateIdList"
     }),
     async fetch() {
       const cart = JSON.parse(localStorage.getItem("cart"));
-      const cartId = cart.map(v => v.id);
-      if (cartId) {
+      if (cart) {
+        const cartId = cart.map(v => v.id);
         await this.fetchIdList({ ids: cartId });
+        this.totalPrice();
       }
-      this.totalPrice()
     },
     async removeItem(item) {
       const cart = JSON.parse(localStorage.getItem("cart"));
@@ -93,9 +96,7 @@ export default {
       newCart
         ? localStorage.setItem("cart", JSON.stringify(newCart))
         : localStorage.removeItem("cart")
-      if (newCart) {
-        await this.fetchIdList({ ids: newCart });
-      }
+      await this.updateIdList({ cart: newCart });
     },
     totalPrice() {
       let total = 0
