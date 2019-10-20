@@ -55,6 +55,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import PayjpCheckout from "vue-payjp-checkout";
+import UserProfile from "~/mixins/userProfile";
 
 const Breadcrumbs = () => import("~/components/global/Breadcrumbs");
 const ItemList = () => import("~/components/store/cart/ItemList");
@@ -65,6 +66,7 @@ export default {
     ItemList,
     PayjpCheckout
   },
+  mixins: [UserProfile],
   data() {
     return {
       total: 0,
