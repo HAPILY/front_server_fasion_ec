@@ -24,12 +24,15 @@
           商品合計 ¥{{ total }}
         </div>
         <!-- レジ or ログイン -->
-        <a-button
+        <payjp-checkout
           class="cart-regi"
-          type="primary"
-        >
-          レジへ進む
-        </a-button>
+          :api-key="public_key"
+          text="カードを情報を入力して購入"
+          submit-text="購入確定"
+          name-placeholder="田中 太郎"
+          @created="onTokenCreated"
+          @failed="onTokenFailed"
+        />
         <nuxt-link to="/store">
           <a-button
             class="cart-shopping"
@@ -51,6 +54,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import PayjpCheckout from "vue-payjp-checkout";
 
 const Breadcrumbs = () => import("~/components/global/Breadcrumbs");
 const ItemList = () => import("~/components/store/cart/ItemList");
@@ -58,11 +62,13 @@ const ItemList = () => import("~/components/store/cart/ItemList");
 export default {
   components: {
     Breadcrumbs,
-    ItemList
+    ItemList,
+    PayjpCheckout
   },
   data() {
     return {
-      total: 0
+      total: 0,
+      public_key: process.env.PAYJP_PUBLIC_KEY
     }
   },
   computed: {
@@ -80,7 +86,8 @@ export default {
   methods: {
     ...mapActions("item", {
       fetchIdList: "fetchIdList",
-      updateIdList: "updateIdList"
+      updateIdList: "updateIdList",
+      postPurchase: "postPurchase"
     }),
     async fetch() {
       const cart = JSON.parse(localStorage.getItem("cart"));
@@ -109,6 +116,32 @@ export default {
     },
     update() {
       this.totalPrice()
+    },
+    // カードのToken化に成功したら呼ばれる。そのTokenでそのまま商品購入にうつる。
+    async onTokenCreated(token) {
+      const cart = JSON.parse(localStorage.getItem("cart"));
+      const data = {
+        token: token.id,
+        item: cart
+      }
+      const res = await this.postPurchase(data);
+      this.$notification.config({
+        placement: "bottomLeft",
+      });
+      this.$notification["success"]({
+        message: res.message
+      });
+      localStorage.removeItem("cart");
+      await this.updateIdList({ cart: undefined });
+    },
+    // Token化に失敗したら呼ばれる。
+    onTokenFailed() {
+      this.$notification.config({
+        placement: "bottomLeft",
+      });
+      this.$notification["error"]({
+        message: "購入に失敗しました"
+      });
     }
   }
 }

@@ -103,5 +103,19 @@ export const actions = {
     } catch (e) {
       console.log("error", e);
     }
+  },
+  async postPurchase(context, params) {
+    try {
+      const qs = require('qs');
+      const res = await this.$axios.$post("/api/item/purchase", {
+        params: params,
+        paramsSerializer: params => {
+          return qs.stringify(params)
+        }
+      });
+      return res.data
+    } catch (e) {
+      console.log(e)
+    }
   }
 };

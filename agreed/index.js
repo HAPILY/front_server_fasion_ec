@@ -6,6 +6,7 @@ module.exports = [
   "./api/item/id",
   "./api/item/ids",
   "./api/item/normal",
+  "./api/item/purchase",
   "./api/news/id",
   "./api/news/normal",
   "./api/user/id",
