@@ -11,5 +11,6 @@ module.exports = [
   "./api/news/normal",
   "./api/user/id",
   "./api/user/login",
-  "./api/user/create"
+  "./api/user/create",
+  "./api/user/update"
 ];
