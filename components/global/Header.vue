@@ -45,6 +45,9 @@
             </div>
             <a-menu slot="overlay">
               <a-menu-item class="header-dropdown-menu">
+                <a href="/mypage">マイページ</a>
+              </a-menu-item>
+              <a-menu-item class="header-dropdown-menu">
                 <a href="/logout">ログアウト</a>
               </a-menu-item>
             </a-menu>

@@ -24,7 +24,19 @@
           商品合計 ¥{{ total }}
         </div>
         <!-- レジ or ログイン -->
+        <nuxt-link
+          v-if="!userProfile.address"
+          to="/mypage"
+        >
+          <a-button
+            class="cart-mypage"
+            type="primary"
+          >
+            お届け先を設定する
+          </a-button>
+        </nuxt-link>
         <payjp-checkout
+          v-else
           class="cart-regi"
           :api-key="public_key"
           text="カードを情報を入力して購入"
@@ -77,6 +89,12 @@ export default {
     ...mapGetters("item", {
       getIdList: "idList"
     }),
+    ...mapGetters("user", {
+      getProfile: "user"
+    }),
+    userProfile() {
+      return this.getProfile.result
+    },
     list() {
       if (!this.getIdList.result) return []
       return this.getIdList.result
@@ -91,8 +109,12 @@ export default {
       updateIdList: "updateIdList",
       postPurchase: "postPurchase"
     }),
+    ...mapActions("user", {
+      fetchUserProfile: "fetchUserProfile"
+    }),
     async fetch() {
       const cart = JSON.parse(localStorage.getItem("cart"));
+      await this.fetchUserProfile()
       if (cart) {
         const cartId = cart.map(v => v.id);
         await this.fetchIdList({ ids: cartId });
@@ -185,6 +207,10 @@ export default {
   }
   &-shopping {
     width: 100%;
+  }
+  &-mypage {
+    width: 100%;
+    margin-bottom: 20px;
   }
   &-not {
     margin: 50px;
