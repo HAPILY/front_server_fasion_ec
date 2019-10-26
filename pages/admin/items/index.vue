@@ -1,9 +1,18 @@
 <template>
   <a-table
     :columns="columns"
-    :dataSource="items"
+    :dataSource="data"
     :loading="loading"
   >
+    <span
+      slot="webp"
+      slot-scope="record"
+    >
+      <img
+        :src="record.webp"
+        width="100"
+      >
+    </span>
     <span
       slot="stock"
       slot-scope="record"
@@ -29,13 +38,13 @@
 export default {
   data () {
     return {
-      items: [
-        { id: 1, name: "Chandler Bing", stock: 2, content: 'これはいい物です。'},
-        { id: 2, name: "Ross Geller", stock: 1, content: 'これはいい物です。'},
-        { id: 3, name: "Rachel Green", stock: 2, content: 'これはいい物です。'},
-        { id: 4, name: "Monica Geller", stock: 2, content: 'これはいい物です。'},
-        { id: 5, name: "Joey Tribbiani", stock: 2, content: 'これはいい物です。'},
-        { id: 6, name: "Phoebe Buffay", stock: 2, content: 'これはいい物です。'}
+      data: [
+        { id: 1, name: "Chandler Bing", stock: 2, webp: 'https://fashion-ec-web.s3-ap-northeast-1.amazonaws.com/uploads/items/src/18/lunch_time_for.webp', content: 'これはいい物です。'},
+        { id: 2, name: "Ross Geller", stock: 1, webp: 'https://fashion-ec-web.s3-ap-northeast-1.amazonaws.com/uploads/items/src/18/lunch_time_for.webp', content: 'これはいい物です。'},
+        { id: 3, name: "Rachel Green", stock: 2, webp: 'https://fashion-ec-web.s3-ap-northeast-1.amazonaws.com/uploads/items/src/18/lunch_time_for.webp', content: 'これはいい物です。'},
+        { id: 4, name: "Monica Geller", stock: 2, webp: 'https://fashion-ec-web.s3-ap-northeast-1.amazonaws.com/uploads/items/src/18/lunch_time_for.webp', content: 'これはいい物です。'},
+        { id: 5, name: "Joey Tribbiani", stock: 2, webp: 'https://fashion-ec-web.s3-ap-northeast-1.amazonaws.com/uploads/items/src/18/lunch_time_for.webp', content: 'これはいい物です。'},
+        { id: 6, name: "Phoebe Buffay", stock: 2, webp: 'https://fashion-ec-web.s3-ap-northeast-1.amazonaws.com/uploads/items/src/18/lunch_time_for.webp', content: 'これはいい物です。'}
       ],
       columns: [
         {
@@ -50,6 +59,11 @@ export default {
         {
           title: 'content',
           dataIndex: 'content'
+        },
+        {
+          title: 'image',
+          key: 'webp',
+          scopedSlots: { customRender: 'webp' }
         },
         {
           title: 'stock',
