@@ -12,7 +12,17 @@
         News
       </h1>
       <div
-        v-if="limitNews"
+        v-if="loading"
+        class="top-skeleton"
+      >
+        <SkeletonCard
+          v-for="i in 3"
+          :key="i"
+          class="top-skeleton-item"
+        />
+      </div>
+      <div
+        v-else
         class="top-news-list"
       >
         <Card
@@ -26,7 +36,6 @@
           :path="`/news/${news.id}`"
         />
       </div>
-      <Spiner v-else />
       <nuxt-link to="/news">
         <a-button
           class="top-more"
@@ -43,7 +52,17 @@
         Items
       </h1>
       <div
-        v-if="limitItems"
+        v-if="loading"
+        class="top-skeleton"
+      >
+        <SkeletonCard
+          v-for="i in 3"
+          :key="i"
+          class="top-skeleton-item"
+        />
+      </div>
+      <div
+        v-else
         class="top-item-list"
       >
         <Card
@@ -57,7 +76,6 @@
           :path="`/store/${item.id}`"
         />
       </div>
-      <Spiner v-else />
       <nuxt-link to="/store">
         <a-button
           class="top-more"
@@ -95,14 +113,19 @@ import { isExpired } from '@/utils/store'
 const Breadcrumbs = () => import("~/components/global/Breadcrumbs");
 const Card = () => import("@/components/card/Card");
 const Carousel = () => import("@/components/carousel/Carousel");
-const Spiner = () => import("~/components/spiner/Spiner");
+const SkeletonCard = () => import("~/components/skeleton/SkeletonCard");
 
 export default {
   components: {
     Breadcrumbs,
     Card,
     Carousel,
-    Spiner
+    SkeletonCard
+  },
+  data() {
+    return {
+      loading: true
+    }
   },
   computed: {
     ...mapGetters("item", {
@@ -142,15 +165,22 @@ export default {
       fetchNewsList: "fetchList"
     }),
     async fetch() {
-      let fetchList = []
-      if (isExpired(this.items)) {
-        fetchList.push(this.fetchItemList())
-      }
+      try {
+        this.loading = true
+        let fetchList = []
+        if (isExpired(this.items)) {
+          fetchList.push(this.fetchItemList())
+        }
 
-      if (isExpired(this.newsList)) {
-        fetchList.push(this.fetchNewsList())
+        if (isExpired(this.newsList)) {
+          fetchList.push(this.fetchNewsList())
+        }
+        await Promise.all(fetchList)
+      } catch(e) {
+        console.log("error", e)
+      } finally {
+        this.loading = false
       }
-      await Promise.all(fetchList)
     }
   }
 };
@@ -196,6 +226,21 @@ export default {
 
     &-item {
       display: inline-block;
+      width: 33%;
+      @include media(sm) {
+        width: 100%;
+        border: 1px solid color(gray, light);
+      }
+    }
+  }
+  &-skeleton {
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: space-between;
+    @include media(sm) {
+      flex-wrap: wrap;
+    }
+    &-item {
       width: 33%;
       @include media(sm) {
         width: 100%;

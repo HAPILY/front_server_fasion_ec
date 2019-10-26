@@ -55,16 +55,32 @@
         />
       </div>
       <div class="header-sp-login">
-        <a-icon
-          class="header-sp-icon"
-          type="login"
-        />
+        <a-dropdown v-if="userProfile">
+          <div class="header-sp-userName">
+            {{ userProfile.firstName }}様
+          </div>
+          <a-menu slot="overlay">
+            <a-menu-item class="header-sp-dropdown-menu">
+              <a href="/logout">ログアウト</a>
+            </a-menu-item>
+          </a-menu>
+        </a-dropdown>
+        <nuxt-link
+          v-else
+          to="/login"
+        >
+          <a-icon
+            class="header-sp-icon"
+            type="login"
+          />
+        </nuxt-link>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import CONST from "@/const";
 
 export default {
@@ -82,8 +98,14 @@ export default {
     };
   },
   computed: {
+    ...mapGetters("user", {
+      getProfile: "user"
+    }),
     isStore() {
       return this.$route.path.split("/")[1] === 'store'
+    },
+    userProfile() {
+      return this.getProfile.result
     }
   },
   methods: {
@@ -163,6 +185,15 @@ export default {
       > svg {
         width: 26px;
         height: 26px;
+      }
+    }
+    &-userName {
+      font-size: 12px;
+      color: color(white, base);
+    }
+    &-dropdown {
+      &-menu {
+        padding: 14px;
       }
     }
 

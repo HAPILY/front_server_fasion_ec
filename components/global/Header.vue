@@ -30,11 +30,6 @@
         </a-menu-item>
       </a-menu>
       <div :class="[{'header-nonStore': !isStore}, 'header-icons']">
-        <a-input-search
-          class="header-search"
-          placeholder="Search Items"
-          @search="onSearch"
-        />
         <div class="header-cart">
           <nuxt-link to="/store/cart">
             <a-icon
@@ -49,6 +44,9 @@
               {{ userProfile.firstName }}様
             </div>
             <a-menu slot="overlay">
+              <a-menu-item class="header-dropdown-menu">
+                <a href="/mypage">マイページ</a>
+              </a-menu-item>
               <a-menu-item class="header-dropdown-menu">
                 <a href="/logout">ログアウト</a>
               </a-menu-item>
@@ -115,9 +113,6 @@ export default {
     },
     onClose() {
       this.onCollapse(true)
-    },
-    onSearch (value) {
-      console.log(value)
     }
   }
 };
@@ -154,6 +149,7 @@ export default {
   &-icons {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
     width: 33%;
     height: 100%;
     position: absolute;
@@ -173,10 +169,6 @@ export default {
       width: 26px;
       height: 26px;
     }
-  }
-  &-search {
-    width: 200px;
-    margin-right: 30px;
   }
   &-userName {
     font-size: 12px;

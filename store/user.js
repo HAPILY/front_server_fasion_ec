@@ -20,7 +20,7 @@ export const actions = {
         context.commit("setUserProfile", {
           result: changeScheme(res.data),
           fetchTime: new Date(),
-          expiryDate: this.$dayjs().add(1, 'day').toDate()
+          expiryDate: this.$dayjs().add(1, 'hour').toDate()
         })
       }
     } catch (e) {
@@ -34,6 +34,10 @@ const changeScheme = (data) => {
     id: data.id,
     firstName: data.first_name,
     lastName: data.last_name,
-    birthday: data.birthday
+    birthday: data.birthday,
+    mail: data.mail,
+    tel: data.tel,
+    zipCode: data.zip_code,
+    address: data.address
   }
 }

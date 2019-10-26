@@ -24,17 +24,34 @@
           商品合計 ¥{{ total }}
         </div>
         <!-- レジ or ログイン -->
-        <a-button
+        <nuxt-link
+          v-if="!userProfile.address"
+          to="/mypage"
+        >
+          <a-button
+            class="cart-mypage"
+            type="primary"
+          >
+            お届け先を設定する
+          </a-button>
+        </nuxt-link>
+        <payjp-checkout
+          v-else
           class="cart-regi"
-          type="primary"
-        >
-          レジへ進む
-        </a-button>
-        <a-button
-          class="cart-shopping"
-        >
-          ショッピングを続ける
-        </a-button>
+          :api-key="public_key"
+          text="カードを情報を入力して購入"
+          submit-text="購入確定"
+          name-placeholder="田中 太郎"
+          @created="onTokenCreated"
+          @failed="onTokenFailed"
+        />
+        <nuxt-link to="/store">
+          <a-button
+            class="cart-shopping"
+          >
+            ショッピングを続ける
+          </a-button>
+        </nuxt-link>
       </div>
     </div>
     <Breadcrumbs
@@ -49,6 +66,8 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import PayjpCheckout from "vue-payjp-checkout";
+import UserProfile from "~/mixins/userProfile";
 
 const Breadcrumbs = () => import("~/components/global/Breadcrumbs");
 const ItemList = () => import("~/components/store/cart/ItemList");
@@ -56,17 +75,26 @@ const ItemList = () => import("~/components/store/cart/ItemList");
 export default {
   components: {
     Breadcrumbs,
-    ItemList
+    ItemList,
+    PayjpCheckout
   },
+  mixins: [UserProfile],
   data() {
     return {
-      total: 0
+      total: 0,
+      public_key: process.env.PAYJP_PUBLIC_KEY
     }
   },
   computed: {
     ...mapGetters("item", {
       getIdList: "idList"
     }),
+    ...mapGetters("user", {
+      getProfile: "user"
+    }),
+    userProfile() {
+      return this.getProfile.result
+    },
     list() {
       if (!this.getIdList.result) return []
       return this.getIdList.result
@@ -77,15 +105,21 @@ export default {
   },
   methods: {
     ...mapActions("item", {
-      fetchIdList: "fetchIdList"
+      fetchIdList: "fetchIdList",
+      updateIdList: "updateIdList",
+      postPurchase: "postPurchase"
+    }),
+    ...mapActions("user", {
+      fetchUserProfile: "fetchUserProfile"
     }),
     async fetch() {
       const cart = JSON.parse(localStorage.getItem("cart"));
-      const cartId = cart.map(v => v.id);
-      if (cartId) {
+      await this.fetchUserProfile()
+      if (cart) {
+        const cartId = cart.map(v => v.id);
         await this.fetchIdList({ ids: cartId });
+        this.totalPrice();
       }
-      this.totalPrice()
     },
     async removeItem(item) {
       const cart = JSON.parse(localStorage.getItem("cart"));
@@ -93,9 +127,7 @@ export default {
       newCart
         ? localStorage.setItem("cart", JSON.stringify(newCart))
         : localStorage.removeItem("cart")
-      if (newCart) {
-        await this.fetchIdList({ ids: newCart });
-      }
+      await this.updateIdList({ cart: newCart });
     },
     totalPrice() {
       let total = 0
@@ -108,6 +140,32 @@ export default {
     },
     update() {
       this.totalPrice()
+    },
+    // カードのToken化に成功したら呼ばれる。そのTokenでそのまま商品購入にうつる。
+    async onTokenCreated(token) {
+      const cart = JSON.parse(localStorage.getItem("cart"));
+      const data = {
+        token: token.id,
+        item: cart
+      }
+      const res = await this.postPurchase(data);
+      this.$notification.config({
+        placement: "bottomLeft",
+      });
+      this.$notification["success"]({
+        message: res.message
+      });
+      localStorage.removeItem("cart");
+      await this.updateIdList({ cart: undefined });
+    },
+    // Token化に失敗したら呼ばれる。
+    onTokenFailed() {
+      this.$notification.config({
+        placement: "bottomLeft",
+      });
+      this.$notification["error"]({
+        message: "購入に失敗しました"
+      });
     }
   }
 }
@@ -149,6 +207,10 @@ export default {
   }
   &-shopping {
     width: 100%;
+  }
+  &-mypage {
+    width: 100%;
+    margin-bottom: 20px;
   }
   &-not {
     margin: 50px;

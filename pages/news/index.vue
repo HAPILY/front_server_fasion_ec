@@ -3,7 +3,17 @@
     <h1 class="news-title">
       News
     </h1>
-    <div v-if="newsList.result">
+    <div
+      v-if="loading"
+      class="news-skeleton"
+    >
+      <SkeletonCard
+        v-for="i in 8"
+        :key="i"
+        class="news-skeleton-item"
+      />
+    </div>
+    <div v-else>
       <div class="news-list">
         <Card
           class="news-item"
@@ -23,7 +33,6 @@
         :total="total"
       />
     </div>
-    <Spiner v-else />
     <Breadcrumbs
       :parentPages="[
         { path: '/', name: 'トップ' }
@@ -39,16 +48,17 @@ import { isExpired } from '@/utils/store'
 
 const Breadcrumbs = () => import("~/components/global/Breadcrumbs");
 const Card = () => import("@/components/card/Card");
-const Spiner = () => import("~/components/spiner/Spiner");
+const SkeletonCard = () => import("~/components/skeleton/SkeletonCard");
 
 export default {
   components: {
     Breadcrumbs,
     Card,
-    Spiner
+    SkeletonCard
   },
   data() {
     return {
+      loading: true,
       current: 1,
       pageSize: 12
     }
@@ -77,8 +87,15 @@ export default {
       fetchNewsList: "fetchList"
     }),
     async fetch() {
-      if (isExpired(this.newsList)) {
-        await this.fetchNewsList()
+      try {
+        this.loading = true
+        if (isExpired(this.newsList)) {
+          await this.fetchNewsList()
+        }
+      } catch(e) {
+        console.log("error", e)
+      } finally {
+        this.loading = false
       }
     }
   }
@@ -121,6 +138,24 @@ export default {
       &:nth-of-type(2n) {
         margin-right: 0px;
         margin-left: 4%;
+      }
+    }
+  }
+  &-skeleton {
+    display: flex;
+    flex-wrap: wrap;
+    &-item {
+      width: 23%;
+      margin-right: 2%;
+      margin-bottom: 10px;
+      @include media(sm) {
+        width: 46%;
+        margin-right: 4%;
+        border: 1px solid color(gray, light);
+        &:nth-of-type(2n) {
+          margin-right: 0px;
+          margin-left: 4%;
+        }
       }
     }
   }

@@ -58,6 +58,24 @@ export const actions = {
       console.log("error", e);
     }
   },
+  updateIdList(context, params) {
+    const list = context.getters.idList.result;
+    let newList = []
+    if (params.cart) {
+      list.forEach(v => {
+        params.cart.forEach(vv => {
+          if (v.id === vv.id) {
+            newList.push(v);
+          }
+        });
+      });
+    }
+    context.commit("setIdList", {
+      result: newList,
+      fetchTime: new Date(),
+      expiryDate: this.$dayjs().add(1, 'seconds').toDate()
+    })
+  },
   async fetchTypeList(context, params) {
     try {
       const res = await this.$axios.$get("/api/item", { params: params });
@@ -84,6 +102,20 @@ export const actions = {
       });
     } catch (e) {
       console.log("error", e);
+    }
+  },
+  async postPurchase(context, params) {
+    try {
+      const qs = require('qs');
+      const res = await this.$axios.$post("/api/item/purchase", {
+        params: params,
+        paramsSerializer: params => {
+          return qs.stringify(params)
+        }
+      });
+      return res.data
+    } catch (e) {
+      console.log(e)
     }
   }
 };

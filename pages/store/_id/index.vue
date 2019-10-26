@@ -41,6 +41,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import Layout from '@/mixins/layout'
+import UserProfile from "~/mixins/userProfile";
 
 const Breadcrumbs = () => import("~/components/global/Breadcrumbs");
 const ItemThumbnail = () => import("~/components/store/ItemThumbnail");
@@ -56,7 +57,7 @@ export default {
     Carousel,
     Spiner
   },
-  mixins: [Layout],
+  mixins: [Layout, UserProfile],
   computed: {
     ...mapGetters("item", {
       getItem: "item"
@@ -91,5 +92,9 @@ export default {
 }
 .storeItem {
   display: flex;
+  flex-wrap: wrap;
+  &-carousel {
+    width: 100%;
+  }
 }
 </style>
