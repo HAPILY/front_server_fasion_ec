@@ -1,7 +1,7 @@
 <template>
   <a-table
     :columns="columns"
-    :dataSource="data"
+    :dataSource="list"
     :loading="loading"
   >
     <span
@@ -18,23 +18,24 @@
         href="#"
         class="ant-dropdown-link"
       >詳細<a-icon type="down" /> </a>
-      <a-button type="danger">削除</a-button>
+      <a-popconfirm
+        :title="alert.title"
+        :okText="alert.ok"
+        :cancelText="alert.cancel"
+      >
+        <a-button type="danger">削除</a-button>
+      </a-popconfirm>
     </span>
   </a-table>
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
+import { isExpired } from '@/utils/store'
+
 export default {
   data () {
     return {
-      data: [
-        { id: 1, title: "Chandler Bing", webp: 'https://fashion-ec-web.s3-ap-northeast-1.amazonaws.com/uploads/items/src/18/lunch_time_for.webp', content: 'ニュースです！これはですね。。', category: 'セールス'},
-        { id: 2, title: "Ross Geller", webp: 'https://fashion-ec-web.s3-ap-northeast-1.amazonaws.com/uploads/items/src/18/lunch_time_for.webp', content: 'ニュースです！これはですね。。', category: 'セールス'},
-        { id: 3, title: "Rachel Green", webp: 'https://fashion-ec-web.s3-ap-northeast-1.amazonaws.com/uploads/items/src/18/lunch_time_for.webp', content: 'ニュースです！これはですね。。', category: 'セールス'},
-        { id: 4, title: "Monica Geller", webp: 'https://fashion-ec-web.s3-ap-northeast-1.amazonaws.com/uploads/items/src/18/lunch_time_for.webp', content: 'ニュースです！これはですね。。', category: 'セールス'},
-        { id: 5, title: "Joey Tribbiani", webp: 'https://fashion-ec-web.s3-ap-northeast-1.amazonaws.com/uploads/items/src/18/lunch_time_for.webp', content: 'ニュースです！これはですね。。', category: 'セールス'},
-        { id: 6, title: "Phoebe Buffay", webp: 'https://fashion-ec-web.s3-ap-northeast-1.amazonaws.com/uploads/items/src/18/lunch_time_for.webp', content: 'ニュースです！これはですね。。', category: 'セールス'}
-      ],
       columns: [
         {
           title: 'ID',
@@ -63,7 +64,48 @@ export default {
         }
       ],
       pagination: {},
-      loading: false
+      loading: false,
+      current: 1,
+      pageSize: 12,
+      alert: {
+        title: "本当に削除しますか？",
+        ok: "はい",
+        cancel: "いいえ"
+      }
+    }
+  },
+  computed: {
+    ...mapGetters("news", {
+      getNewsList: "list"
+    }),
+    news() {
+      return this.getNewsList;
+    },
+    list() {
+      if (!this.news.result) return null
+      const begin = this.pageSize * (this.current - 1)
+      const end = this.pageSize * this.current
+      return this.news.result.slice(begin, end)
+    }
+  },
+  created() {
+    this.fetch();
+  },
+  methods: {
+    ...mapActions("news", {
+      fetchNewsList: "fetchList"
+    }),
+    async fetch() {
+      try {
+        this.loading = true
+        if (isExpired(this.news)) {
+          await this.fetchNewsList()
+        }
+      } catch(e) {
+        console.log("error", e)
+      } finally {
+        this.loading = false
+      }
     }
   }
 }
