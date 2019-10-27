@@ -1,15 +1,15 @@
 <template>
   <a-table
     :columns="columns"
-    :dataSource="data"
+    :dataSource="list"
     :loading="loading"
   >
     <span
-      slot="webp"
+      slot="images"
       slot-scope="record"
     >
       <img
-        :src="record.webp"
+        :src="record.images[0].webp"
         width="100"
       >
     </span>
@@ -26,26 +26,26 @@
     </span>
     <span slot="action">
       <a
-        href="#"
-        class="ant-dropdown-link"
+        href="items/1"
       >詳細<a-icon type="down" /> </a>
-      <a-button type="danger">削除</a-button>
+      <a-popconfirm
+        :title="alert.title"
+        :okText="alert.ok"
+        :cancelText="alert.cancel"
+      >
+        <a-button type="danger">削除</a-button>
+      </a-popconfirm>
     </span>
   </a-table>
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
+import { isExpired } from '@/utils/store'
+
 export default {
   data () {
     return {
-      data: [
-        { id: 1, name: "Chandler Bing", stock: 2, webp: 'https://fashion-ec-web.s3-ap-northeast-1.amazonaws.com/uploads/items/src/18/lunch_time_for.webp', content: 'これはいい物です。'},
-        { id: 2, name: "Ross Geller", stock: 1, webp: 'https://fashion-ec-web.s3-ap-northeast-1.amazonaws.com/uploads/items/src/18/lunch_time_for.webp', content: 'これはいい物です。'},
-        { id: 3, name: "Rachel Green", stock: 2, webp: 'https://fashion-ec-web.s3-ap-northeast-1.amazonaws.com/uploads/items/src/18/lunch_time_for.webp', content: 'これはいい物です。'},
-        { id: 4, name: "Monica Geller", stock: 2, webp: 'https://fashion-ec-web.s3-ap-northeast-1.amazonaws.com/uploads/items/src/18/lunch_time_for.webp', content: 'これはいい物です。'},
-        { id: 5, name: "Joey Tribbiani", stock: 2, webp: 'https://fashion-ec-web.s3-ap-northeast-1.amazonaws.com/uploads/items/src/18/lunch_time_for.webp', content: 'これはいい物です。'},
-        { id: 6, name: "Phoebe Buffay", stock: 2, webp: 'https://fashion-ec-web.s3-ap-northeast-1.amazonaws.com/uploads/items/src/18/lunch_time_for.webp', content: 'これはいい物です。'}
-      ],
       columns: [
         {
           title: 'ID',
@@ -57,13 +57,9 @@ export default {
           dataIndex: 'name'
         },
         {
-          title: 'content',
-          dataIndex: 'content'
-        },
-        {
           title: 'image',
-          key: 'webp',
-          scopedSlots: { customRender: 'webp' }
+          key: 'images',
+          scopedSlots: { customRender: 'images' }
         },
         {
           title: 'stock',
@@ -79,7 +75,48 @@ export default {
         }
       ],
       pagination: {},
-      loading: false
+      loading: false,
+      current: 1,
+      pageSize: 12,
+      alert: {
+        title: "本当に削除しますか？",
+        ok: "はい",
+        cancel: "いいえ"
+      }
+    }
+  },
+  computed: {
+    ...mapGetters("item", {
+      getItemList: "list"
+    }),
+    items() {
+      return this.getItemList;
+    },
+    list() {
+      if (!this.items.result) return null
+      const begin = this.pageSize * (this.current - 1)
+      const end = this.pageSize * this.current
+      return this.items.result.slice(begin, end)
+    }
+  },
+  created() {
+    this.fetch();
+  },
+  methods: {
+    ...mapActions("item", {
+      fetchItemList: "fetchList"
+    }),
+    async fetch() {
+      try {
+        this.loading = true
+        if (isExpired(this.items)) {
+          await this.fetchItemList()
+        }
+      } catch(e) {
+        console.log("error", e)
+      } finally {
+        this.loading = false
+      }
     }
   }
 }
